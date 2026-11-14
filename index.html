@@ -94,6 +94,20 @@ h1 .tinta{font-weight:inherit;color:var(--blood-soft);background:linear-gradient
 .cta{display:inline-block;margin-top:24px;padding:14px 26px;background:var(--blood);color:#fff;text-decoration:none;
   font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:4px;box-shadow:0 6px 0 #6d1510,0 0 0 rgba(179,38,30,0);transition:box-shadow .3s,transform .1s}
 .cta:hover{transform:translateY(2px);box-shadow:0 4px 0 #6d1510,0 0 28px rgba(179,38,30,.55)}
+.cta .play{margin-right:10px;vertical-align:-1px}
+.ctas{display:flex;flex-wrap:wrap;align-items:center;gap:14px 16px;margin-top:24px}
+.ctas .cta{margin-top:0}
+.cta.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+.cta.ghost:hover{transform:none;box-shadow:inset 0 0 0 2px var(--ink)}
+.cta-nota{margin:14px 0 0;font-size:.82rem;color:var(--muted)}
+.nav-jugar{flex:none;display:inline-flex;align-items:center;gap:8px;margin-left:8px;padding:9px 16px;background:var(--blood);color:#fff;text-decoration:none;
+  font:800 .78rem Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;border-radius:4px;box-shadow:0 3px 0 #6d1510;transition:box-shadow .2s,transform .1s}
+.nav-jugar:hover{transform:translateY(1px);box-shadow:0 2px 0 #6d1510,0 0 18px rgba(179,38,30,.5)}
+#jugar{text-align:center;background:radial-gradient(ellipse at 50% 100%,rgba(179,38,30,.22),transparent 70%),var(--bg2);border-top:1px solid var(--line)}
+#jugar h2::after{margin-left:auto;margin-right:auto;background:linear-gradient(90deg,transparent,var(--blood),transparent)}
+#jugar .sub{margin-left:auto;margin-right:auto}
+#jugar .eliot{display:block;margin:0 auto 18px;width:54px;height:auto}
+#jugar .cta-nota{margin-top:18px}
 /* la horda escala con el ancho de su columna: nunca se sale */
 .horde{container-type:inline-size;width:100%}
 .horde .fila{display:flex;align-items:flex-end;justify-content:center;gap:2cqw;filter:drop-shadow(0 18px 18px rgba(0,0,0,.6))}
@@ -122,6 +136,7 @@ section{padding:72px 0}
 h2{font-family:"Special Elite",monospace;font-weight:400;font-size:clamp(1.7rem,5vw,2.6rem);margin:0 0 8px;line-height:1.15}
 h2::after{content:"";display:block;width:72px;height:3px;margin-top:10px;background:linear-gradient(90deg,var(--blood),transparent)}
 .sub{color:var(--muted);margin:0 0 36px;max-width:42em}
+.sub + .sub{margin-top:-24px}
 
 /* ---------- reglas ---------- */
 .rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:16px}
@@ -260,6 +275,8 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
 .visor::backdrop{background:rgba(5,4,4,.88)}
 .visor img{display:block;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges;border-radius:6px;border:1px solid var(--line)}
 .visor p{margin:10px 0 0;text-align:center;color:var(--muted);font-size:.9rem}
+.visor:not([open]){display:none}
+.visor button::before{content:"✕"}
 .visor button{position:absolute;top:8px;right:8px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.7);color:var(--ink);font-size:1.3rem;cursor:pointer}
 @media (max-width:760px){
   .paso{grid-template-columns:minmax(0,1fr);gap:14px}
@@ -275,6 +292,7 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
 @media (max-width:860px){
   :root{--nav-h:64px}
   .burger{display:flex}
+  .nav-jugar{margin-left:auto}
   .brand img{width:82px}
   .links{position:absolute;top:var(--nav-h);left:0;right:0;flex-direction:column;gap:0;padding:8px 16px 16px;
     background:rgba(12,11,10,.97);border-bottom:1px solid var(--line);box-shadow:0 16px 30px rgba(0,0,0,.6);
@@ -311,8 +329,9 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
       <li><a href="#como-funcionan">Cómo funcionan</a></li>
       <li><a href="#tamanos">Tamaños</a></li>
       <li><a href="#guia">Guía de juego</a></li>
-      <li><a href="#reglas">Sobrevivir</a></li>
+      <li><a href="#reglas">Reglas</a></li>
     </ul>
+    <a class="nav-jugar" href="https://eliotwanttolivev1.vercel.app/" target="_blank" rel="noopener"><svg class="play" viewBox="0 0 10 12" width="10" height="12" aria-hidden="true"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg>Probar demo</a>
     <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span></button>
   </div>
 </nav>
@@ -325,7 +344,11 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
       <div class="kicker">Guía de campo · Infectados</div>
       <h1>El diario<br>de <span class="sangre" aria-label="Eliot"><span><b class="tinta">E</b><i class="gota" style="--x:22%;--l:.24em;--d:.3s;--t:6.5s"></i><i class="gota" style="--x:80%;--l:.14em;--d:3.9s;--t:7s;--g:.055em"></i></span><span><b class="tinta">l</b><i class="gota" style="--x:50%;--l:.3em;--d:2.2s;--t:5.8s"></i></span><span><b class="tinta">i</b></span><span><b class="tinta">o</b><i class="gota" style="--x:55%;--l:.18em;--d:4.6s;--t:6.2s;--g:.06em"></i></span><span><b class="tinta">t</b><i class="gota" style="--x:46%;--l:.27em;--d:1.2s;--t:7.4s"></i></span></span></h1>
       <p class="lead">Todo lo que Eliot ha aprendido sobre los muertos que caminan por la ciudad: cómo cazan, qué los hace peligrosos y, sobre todo, cómo seguir vivo un día más.</p>
-      <a class="cta" href="#bestiario">Abrir el bestiario</a>
+      <div class="ctas">
+        <a class="cta" href="https://eliotwanttolivev1.vercel.app/" target="_blank" rel="noopener"><svg class="play" viewBox="0 0 10 12" width="10" height="12" aria-hidden="true"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg>Probar demo</a>
+        <a class="cta ghost" href="#bestiario">Abrir el bestiario</a>
+      </div>
+      <p class="cta-nota">Gratis y en el navegador, sin descargas. Funciona en ordenador y en móvil.</p>
     </div>
     <div class="horde" aria-hidden="true">
       <div class="fila">
@@ -386,7 +409,8 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
 <section id="tamanos">
   <div class="wrap">
     <h2 class="reveal">Mídelos antes de pelear</h2>
-    <p class="sub reveal">A escala real junto a Eliot. Los gigantes casi le doblan la altura.</p>
+    <p class="sub reveal">Los trece infectados del bestiario, a la misma escala que Eliot. La mayoría tiene su estatura y solo el perro infectado es más bajo que él. El Hinchado, el Coloso y el Bruto le sacan casi la mitad de altura y son más del triple de anchos.</p>
+    <p class="sub reveal">El tamaño avisa de lo que aguantan: un Bruto resiste cuatro veces más daño que un zombi común y un Coloso, más de cinco. Si ves una silueta así al fondo de la calle, no lo dejes acercarse: retrocede, dispara y vuelve a retroceder.</p>
     <div class="lineup reveal" id="lineup"></div>
   </div>
 </section>
@@ -399,7 +423,7 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
       <a href="#acto-hospital"><b>1</b>El hospital</a>
       <a href="#acto-ciudad"><b>2</b>La ciudad y las armas</a>
       <a href="#acto-estacion"><b>3</b>La llave de la estación</a>
-      <a href="#sobrevivir"><b>4</b>Sobrevivir</a>
+      <a href="#sobrevivir"><b>4</b>Cómo seguir vivo</a>
       <a href="#controles"><b>5</b>Controles</a>
     </nav>
 
@@ -534,7 +558,7 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
       </ol>
     </article>
 
-    <!-- ===== Sobrevivir ===== -->
+    <!-- ===== Cómo seguir vivo ===== -->
     <div class="acto" id="sobrevivir">
       <header class="reveal"><span class="n">Lo básico</span><h3>Cómo seguir vivo</h3>
         <p>Seis cosas que conviene dominar antes de salir del hospital.</p></header>
@@ -603,12 +627,6 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
   </div>
 </section>
 
-<dialog class="visor" id="visor" aria-label="Captura ampliada">
-  <img src="" alt="">
-  <p></p>
-  <button type="button" aria-label="Cerrar">✕</button>
-</dialog>
-
 <section id="reglas" style="background:var(--bg2);border-top:1px solid var(--line)">
   <div class="wrap">
     <h2 class="reveal">Reglas para seguir vivo</h2>
@@ -621,9 +639,19 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
   </div>
 </section>
 
+<section id="jugar">
+  <div class="wrap">
+    <img class="px eliot reveal" src="img/eliot_pistola.png" width="18" height="46" alt="">
+    <h2 class="reveal">¿Listo para salir del hospital?</h2>
+    <p class="sub reveal">Ya sabes cómo cazan, cuánto aguantan y qué hacer cuando se amontonan. Ahora te toca a ti mantener vivo a Eliot.</p>
+    <a class="cta reveal" href="https://eliotwanttolivev1.vercel.app/" target="_blank" rel="noopener"><svg class="play" viewBox="0 0 10 12" width="10" height="12" aria-hidden="true"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg>Probar demo</a>
+    <p class="cta-nota reveal">Gratis y en el navegador, sin descargas.</p>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
-    <div class="team"><span>Un juego de</span><img src="img/logo_equipo_rojo.png" width="380" height="148" alt="Equipo Rojo"></div><br>
+    <div class="team"><span>Un juego de</span> <img src="img/logo_equipo_rojo.png" width="380" height="148" alt="Equipo Rojo"></div><br>
     <strong>Eliot Want To Live</strong><br>
     Supervivencia zombi de vista cenital. Datos tomados de la versión 1.0.3; pueden cambiar con el desarrollo.
   </div>
@@ -873,5 +901,10 @@ if (matchMedia("(pointer:fine)").matches) {
   });
 }
 </script>
+<dialog class="visor" id="visor" aria-label="Captura ampliada">
+  <img alt="">
+  <p></p>
+  <button type="button" aria-label="Cerrar"></button>
+</dialog>
 </body>
 </html>
