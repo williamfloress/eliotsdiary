@@ -1,0 +1,877 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El diario de Eliot</title>
+<meta name="description" content="Guía de campo de los infectados de Eliot Want To Live: cómo se comportan, qué los hace peligrosos y cómo acabar con ellos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Caveat:wght@500;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js")</script>
+<style>
+:root{
+  --bg:#0f0e0d; --bg2:#1a1816; --ink:#ece6da; --muted:#a89f90; --line:#36312b;
+  --paper:#e9dfc8; --paper-ink:#2a241c; --paper-line:#c9b994;
+  --blood:#b3261e; --blood-soft:#e0574c; --toxic:#8fbf3a; --fire:#f08a24; --steel:#7f97ad;
+  --bar-bg:#2b2723; --nav-h:72px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 12px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:hidden;overflow-wrap:break-word}
+img{max-width:100%}
+img.px{image-rendering:pixelated;image-rendering:crisp-edges;display:block}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+
+/* ---------- grano de película y viñeta (toda la página) ---------- */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;
+  background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
+body::after{content:"";position:fixed;inset:-50%;pointer-events:none;z-index:91;opacity:.09;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grano .6s steps(5) infinite}
+@keyframes grano{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+
+/* ---------- navbar ---------- */
+.nav{position:sticky;top:0;z-index:80;height:var(--nav-h);transition:background .3s,box-shadow .3s,border-color .3s;
+  background:linear-gradient(rgba(10,9,8,.85),rgba(10,9,8,0));border-bottom:1px solid transparent}
+.nav.solid{background:rgba(12,11,10,.94);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-color:var(--line);box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.nav .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.links{list-style:none;display:flex;gap:4px;margin:0;padding:0}
+.links a{display:block;padding:8px 14px;text-decoration:none;font:600 .82rem Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-radius:4px;position:relative}
+.links a:hover,.links a.on{color:var(--ink)}
+.links a::after{content:"";position:absolute;left:14px;right:14px;bottom:3px;height:2px;background:var(--blood);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+.links a:hover::after,.links a.on::after{transform:scaleX(1)}
+.brand{flex:none;display:block;line-height:0;position:relative}
+.nav .links{margin-left:auto}
+/* el logo es marrón y se perdía en el fondo: un foco de luz cálida detrás y algo más de brillo */
+.brand::before{content:"";position:absolute;inset:-14px -26px;pointer-events:none;
+  background:radial-gradient(ellipse at center,rgba(255,214,170,.22) 0%,rgba(224,87,76,.14) 45%,transparent 72%)}
+.brand img{position:relative;width:96px;height:auto;filter:brightness(1.35) saturate(1.1) drop-shadow(0 2px 3px rgba(0,0,0,.9))}
+.burger{display:none;width:44px;height:44px;border:1px solid var(--line);background:rgba(0,0,0,.35);border-radius:6px;cursor:pointer;padding:0;align-items:center;justify-content:center}
+.burger span,.burger span::before,.burger span::after{display:block;width:20px;height:2px;background:var(--ink);position:relative;transition:transform .25s,background .25s}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0}
+.burger span::before{top:-6px} .burger span::after{top:6px}
+.burger[aria-expanded="true"] span{background:transparent}
+.burger[aria-expanded="true"] span::before{transform:translateY(6px) rotate(45deg)}
+.burger[aria-expanded="true"] span::after{transform:translateY(-6px) rotate(-45deg)}
+
+/* ---------- portada ---------- */
+.hero{position:relative;margin-top:calc(var(--nav-h) * -1);padding:calc(var(--nav-h) + 48px) 0 72px;min-height:min(92vh,800px);display:flex;align-items:center;overflow:hidden;
+  background:radial-gradient(ellipse at 70% 62%,#3a1512 0%,transparent 55%),radial-gradient(ellipse at 20% 0%,#24201b 0%,var(--bg) 70%)}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px)}
+/* linterna: oscurece todo menos un círculo que sigue al cursor */
+.hero .linterna{position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:radial-gradient(circle 260px at var(--mx,72%) var(--my,58%),transparent 0,rgba(0,0,0,.25) 45%,rgba(0,0,0,.72) 100%);
+  animation:parpadeo 7s infinite}
+@keyframes parpadeo{0%,91%,100%{opacity:1}92%{opacity:.35}93%{opacity:1}95%{opacity:.5}96%{opacity:1}}
+.fog{position:absolute;left:-30%;width:160%;height:240px;bottom:-40px;pointer-events:none;z-index:4;opacity:.55;
+  background:radial-gradient(ellipse 22% 45% at 20% 60%,rgba(180,170,160,.18),transparent 70%),radial-gradient(ellipse 25% 50% at 55% 70%,rgba(180,170,160,.14),transparent 70%),radial-gradient(ellipse 20% 40% at 85% 55%,rgba(180,170,160,.16),transparent 70%);
+  animation:niebla 38s linear infinite alternate}
+.fog.b{bottom:-80px;opacity:.4;animation-duration:55s;animation-direction:alternate-reverse}
+@keyframes niebla{from{transform:translateX(-8%)}to{transform:translateX(8%)}}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:32px;align-items:center;position:relative;z-index:5;width:100%}
+.kicker{font-family:"Special Elite",monospace;color:var(--blood-soft);letter-spacing:.18em;text-transform:uppercase;font-size:.85rem}
+h1{font-family:"Special Elite",monospace;font-size:clamp(2.4rem,8vw,5rem);line-height:1;margin:.3em 0 .65em;font-weight:400;text-shadow:0 0 24px rgba(0,0,0,.8)}
+/* "Eliot" en sangre: cada letra se oscurece hacia abajo y de su base nacen las gotas */
+h1 .sangre{display:inline-block;animation:neon 6s infinite;filter:drop-shadow(0 0 14px rgba(224,87,76,.35))}
+@keyframes neon{0%,86%,100%{opacity:1}87%{opacity:.25}88%{opacity:1}90%{opacity:.4}91%{opacity:1}}
+h1 .sangre>span{position:relative;display:inline-block}
+h1 .tinta{font-weight:inherit;color:var(--blood-soft);background:linear-gradient(180deg,#e9645a 0%,#d2443a 45%,#a3201a 78%,#8f1812 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+/* gota: un cauce recortado bajo la letra; el chorro (con su bulbo en la punta) sale deslizándose
+   desde dentro de la letra, se queda colgando, suelta una gota y se retrae */
+.gota{position:absolute;left:var(--x);top:var(--y,.68em);width:.2em;margin-left:-.1em;height:calc(var(--l) + .7em);overflow:hidden;pointer-events:none}
+.gota::before{content:"";position:absolute;left:50%;top:0;width:.13em;height:var(--l);margin-left:-.065em;transform:translateY(-100%);
+  background:radial-gradient(circle at 50% calc(100% - .065em),#8f1812 .058em,transparent .064em),
+             linear-gradient(#b0261d,#8f1812) 50% 0/var(--g,.07em) calc(100% - .06em) no-repeat;
+  animation:chorrea var(--t,6s) var(--d,0s) infinite cubic-bezier(.55,0,.75,.55)}
+.gota::after{content:"";position:absolute;left:50%;top:calc(var(--l) - .1em);width:.1em;height:.14em;margin-left:-.05em;background:#8f1812;
+  border-radius:50% 50% 50% 50%/62% 62% 38% 38%;opacity:0;animation:cae var(--t,6s) var(--d,0s) infinite ease-in}
+@keyframes chorrea{0%{transform:translateY(-100%)}50%,78%{transform:translateY(0)}100%{transform:translateY(-82%)}}
+@keyframes cae{0%,52%{opacity:0;transform:translateY(0)}54%{opacity:1;transform:translateY(0)}70%{opacity:1;transform:translateY(.5em) scaleY(1.25)}72%,100%{opacity:0;transform:translateY(.5em)}}
+.lead{font-size:clamp(1rem,2.6vw,1.15rem);color:var(--muted);max-width:34em}
+.cta{display:inline-block;margin-top:24px;padding:14px 26px;background:var(--blood);color:#fff;text-decoration:none;
+  font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:4px;box-shadow:0 6px 0 #6d1510,0 0 0 rgba(179,38,30,0);transition:box-shadow .3s,transform .1s}
+.cta:hover{transform:translateY(2px);box-shadow:0 4px 0 #6d1510,0 0 28px rgba(179,38,30,.55)}
+/* la horda escala con el ancho de su columna: nunca se sale */
+.horde{container-type:inline-size;width:100%}
+.horde .fila{display:flex;align-items:flex-end;justify-content:center;gap:2cqw;filter:drop-shadow(0 18px 18px rgba(0,0,0,.6))}
+/* zombis de la portada: caminan en el sitio (canvas con la animación del juego) */
+.horde img{flex:none;height:auto;width:calc(var(--w) * min(3px, 100cqw / 200));image-rendering:pixelated;image-rendering:crisp-edges}
+.horde .eliot{margin-right:3cqw}
+
+/* ---------- cinta de precaución ---------- */
+.cinta{overflow:hidden;background:#e2b714;color:#141210;transform:rotate(-1.2deg);margin:-14px -10px 0;position:relative;z-index:6;
+  border-block:4px solid #141210;box-shadow:0 10px 28px rgba(0,0,0,.6)}
+.cinta div{display:flex;width:max-content;animation:cinta 28s linear infinite}
+.cinta span{font:800 .95rem Inter,sans-serif;letter-spacing:.22em;text-transform:uppercase;padding:9px 0;white-space:nowrap}
+.cinta span::after{content:"  ✕  ";padding:0 14px}
+@keyframes cinta{to{transform:translateX(-50%)}}
+
+/* ---------- nota de diario ---------- */
+.note{background:var(--paper);color:var(--paper-ink);border-radius:3px;padding:28px 24px 24px;position:relative;
+  background-image:repeating-linear-gradient(transparent 0 31px,var(--paper-line) 31px 32px);
+  box-shadow:0 14px 40px rgba(0,0,0,.45);rotate:-.6deg}
+.note::before{content:"";position:absolute;top:-12px;left:50%;width:110px;height:26px;transform:translateX(-50%) rotate(2deg);background:rgba(220,210,170,.75)}
+.note p{font-family:Caveat,cursive;font-size:clamp(1.3rem,4vw,1.55rem);line-height:32px;margin:0 0 32px}
+.note p:last-child{margin:0}
+.note .firma{text-align:right;font-weight:700}
+
+section{padding:72px 0}
+h2{font-family:"Special Elite",monospace;font-weight:400;font-size:clamp(1.7rem,5vw,2.6rem);margin:0 0 8px;line-height:1.15}
+h2::after{content:"";display:block;width:72px;height:3px;margin-top:10px;background:linear-gradient(90deg,var(--blood),transparent)}
+.sub{color:var(--muted);margin:0 0 36px;max-width:42em}
+
+/* ---------- reglas ---------- */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:16px}
+.rule{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:22px;transition:border-color .3s,box-shadow .3s}
+.rule:hover{border-color:#5a2420;box-shadow:inset 0 0 40px rgba(179,38,30,.12)}
+.rule .ico{width:72px;height:72px;display:flex;align-items:center;justify-content:center;background:#121014;border:1px solid var(--line);border-radius:6px;box-shadow:inset 0 0 18px rgba(0,0,0,.7)}
+.rule .ico img{height:auto}
+.rule h3{margin:10px 0 6px;font-size:1.08rem}
+.rule p{margin:0;color:var(--muted);font-size:.95rem}
+
+/* ---------- filtros ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.filters button{font:600 .9rem Inter,sans-serif;color:var(--ink);background:var(--bg2);border:1px solid var(--line);padding:9px 16px;border-radius:999px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* ---------- fichas ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:20px}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-width:0;transition:transform .25s,border-color .25s,box-shadow .25s}
+.card:hover,.card:focus-within{transform:translateY(-3px);border-color:#6a2520;box-shadow:0 14px 34px rgba(0,0,0,.5),inset 0 0 50px rgba(179,38,30,.10)}
+.card[hidden]{display:none}
+.card{cursor:pointer}
+.card:focus-visible{outline:2px solid var(--blood-soft);outline-offset:3px}
+/* escenario: el zombi animado, a todo lo ancho de la ficha */
+.stage{position:relative;height:200px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;border-bottom:1px solid var(--line);
+  background:radial-gradient(ellipse 60% 70% at 50% 100%,#2a2420,transparent 70%),linear-gradient(#1d1a17,#151311)}
+/* sombra suave bajo los pies (antes era una elipse de borde duro) */
+.stage::before{content:"";position:absolute;left:50%;bottom:12px;width:90px;height:14px;transform:translateX(-50%);border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(0,0,0,.55),transparent 70%)}
+.stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 55%,rgba(179,38,30,.22),transparent 60%);opacity:0;transition:opacity .4s}
+.card.playing .stage::after{opacity:1}
+.stage canvas{position:relative;z-index:1;margin-bottom:16px;image-rendering:pixelated;image-rendering:crisp-edges;max-width:none}
+.card .top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:16px;padding:16px 20px 0;align-items:end}
+.who{min-width:0}
+.tag{display:inline-block;font:700 .7rem Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.tag.comun{background:#3b3630;color:#d8cfbf}
+.tag.especial{background:#3d2a12;color:var(--fire)}
+.tag.gigante{background:#4a1612;color:#ffb3ab}
+.who h3{font-family:"Special Elite",monospace;font-weight:400;font-size:1.5rem;margin:8px 0 2px;line-height:1.1}
+.who .alias{color:var(--muted);font-size:.85rem;margin:0}
+.stats{display:grid;gap:6px;padding-bottom:4px}
+.stat{display:grid;grid-template-columns:76px minmax(0,1fr);align-items:center;gap:8px;font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.bar{height:7px;background:var(--bar-bg);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:4px;transform-origin:left;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.js .card:not(.in) .bar i{transform:scaleX(0)}
+.bar.v i{background:var(--blood-soft)} .bar.s i{background:var(--steel)} .bar.d i{background:var(--fire)}
+.body{padding:16px 20px 20px;display:flex;flex-direction:column;gap:12px;flex:1}
+.desc{margin:0;font-size:.95rem}
+.lists{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.lists h4{margin:0 0 4px;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
+.lists .q h4{color:var(--blood-soft)} .lists .w h4{color:var(--toxic)}
+.lists ul{margin:0;padding-left:16px;font-size:.88rem;color:var(--muted)}
+.lists li{margin-bottom:3px}
+.tip{margin-top:auto;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.25;color:var(--paper);border-left:3px solid var(--blood);padding-left:10px}
+.when{font-size:.78rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+
+/* ---------- tamaños ---------- */
+.lineup{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:10px 14px;padding:24px 4px 0;border-bottom:2px solid var(--line)}
+.lineup figure{margin:0;flex:none;text-align:center}
+.lineup img{height:auto}
+.lineup figcaption{font-size:.72rem;color:var(--muted);padding:6px 0}
+
+/* ---------- consejos ---------- */
+.tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:24px;align-items:start}
+.tips .note:nth-child(2){rotate:.8deg}
+.tips .note:nth-child(3){rotate:-.3deg}
+.note h3{font-family:"Special Elite",monospace;font-weight:400;margin:0 0 32px;line-height:32px;font-size:1.3rem}
+
+footer{padding:48px 0 64px;color:var(--muted);font-size:.85rem;text-align:center;border-top:1px solid var(--line)}
+footer strong{color:var(--ink);font-family:"Special Elite",monospace;font-weight:400;font-size:1.1rem}
+footer .team{display:inline-flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:22px}
+footer .team span{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
+footer .team img{width:min(200px,60vw);height:auto;display:block}
+
+/* ---------- guía de juego ---------- */
+kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Inter,sans-serif;text-align:center;color:var(--ink);
+  background:#2b2723;border:1px solid #4a433b;border-bottom-width:3px;border-radius:4px;white-space:nowrap}
+.actos{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 32px}
+.actos a{display:flex;align-items:center;gap:10px;padding:8px 14px 8px 8px;background:var(--bg2);border:1px solid var(--line);border-radius:999px;text-decoration:none;font-weight:600;font-size:.9rem}
+.actos a:hover{border-color:#6a2520}
+.actos b{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--blood);color:#fff;font:800 .85rem Inter,sans-serif}
+.acto{margin-top:48px}
+.acto>header{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:28px}
+.acto>header .n{font-family:"Special Elite",monospace;color:var(--blood-soft);font-size:.95rem;letter-spacing:.15em;text-transform:uppercase}
+.acto>header h3{font-family:"Special Elite",monospace;font-weight:400;font-size:clamp(1.4rem,4vw,1.9rem);margin:0}
+.acto>header p{flex-basis:100%;margin:4px 0 0;color:var(--muted);max-width:46em}
+/* pasos: captura a un lado y texto al otro, alternando; en móvil, uno debajo de otro */
+.pasos{list-style:none;margin:0;padding:0;display:grid;gap:36px;counter-reset:paso}
+.paso{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px;align-items:center;counter-increment:paso}
+.paso:nth-child(even) .shot{order:2}
+.paso h4{margin:0 0 8px;font-size:1.15rem;line-height:1.3}
+.paso h4::before{content:counter(paso,decimal-leading-zero);display:block;font:400 .85rem "Special Elite",monospace;color:var(--blood-soft);letter-spacing:.15em;margin-bottom:4px}
+.paso p{margin:0 0 10px;color:var(--muted)}
+.paso p strong{color:var(--ink)}
+.teclas{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.82rem;color:var(--muted);margin-top:12px}
+.teclas span{display:inline-flex;align-items:center;gap:5px}
+.shot{margin:0;position:relative;min-width:0}
+.shot button{all:unset;display:block;cursor:zoom-in;width:100%;border-radius:6px;overflow:hidden;border:1px solid var(--line);box-shadow:0 12px 30px rgba(0,0,0,.5);background:#000}
+.shot button:focus-visible{outline:2px solid var(--blood-soft);outline-offset:3px}
+.shot img{display:block;width:100%;height:auto;transition:transform .4s}
+.shot button:hover img{transform:scale(1.025)}
+.shot figcaption{font-size:.75rem;color:var(--muted);padding-top:6px}
+.duo{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+.mec .duo{grid-template-columns:1fr 1fr;gap:0}
+.duo figcaption{grid-column:1/-1}
+.ojo{margin-top:12px;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.25;color:var(--paper);border-left:3px solid var(--blood);padding-left:10px}
+/* arsenal del prólogo */
+.arsenal{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:14px;margin:8px 0 0}
+.arma{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:16px;display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px;align-items:start}
+.arma .ico{height:64px;display:flex;align-items:center;justify-content:center;border:1px solid #5a5045;border-radius:6px;background:radial-gradient(circle at 50% 45%,#8a7d6c,#4d453b 75%)}
+.arma .ico img{image-rendering:pixelated;image-rendering:crisp-edges;height:auto}
+.arma h5{margin:0;font-size:1rem}
+.arma p{margin:2px 0 0;font-size:.82rem;color:var(--muted);line-height:1.4}
+.arma .donde{color:var(--fire);font-weight:600}
+/* supervivencia: tarjetas con recorte ampliado */
+.mecs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:20px}
+.mec{background:var(--bg2);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.mec .shot button{border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none}
+.mec .txt{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.mec h4{margin:0;font-size:1.1rem}
+.mec p{margin:0;font-size:.92rem;color:var(--muted)}
+.mec .teclas{margin-top:auto;padding-top:8px;border-top:1px dashed var(--line)}
+/* controles */
+.controles{width:100%;border-collapse:collapse;font-size:.9rem}
+.controles th,.controles td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.controles th{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.controles td:first-child{font-weight:600}
+.controles td{color:var(--muted)} .controles td:first-child{color:var(--ink)}
+.tabla{overflow-x:auto;background:var(--bg2);border:1px solid var(--line);border-radius:10px}
+.despues{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:center;background:linear-gradient(135deg,#221a16,#161412);border:1px solid #4a2a22;border-radius:12px;padding:24px}
+.despues h3{font-family:"Special Elite",monospace;font-weight:400;font-size:1.6rem;margin:0 0 8px}
+.despues p{color:var(--muted);margin:0 0 10px}
+.despues ul{margin:0;padding-left:18px;color:var(--muted)}
+.despues li{margin-bottom:4px}
+/* visor de capturas */
+.visor{border:0;padding:0;background:transparent;max-width:min(1280px,96vw);width:100%;color:var(--ink)}
+.visor::backdrop{background:rgba(5,4,4,.88)}
+.visor img{display:block;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges;border-radius:6px;border:1px solid var(--line)}
+.visor p{margin:10px 0 0;text-align:center;color:var(--muted);font-size:.9rem}
+.visor button{position:absolute;top:8px;right:8px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.7);color:var(--ink);font-size:1.3rem;cursor:pointer}
+@media (max-width:760px){
+  .paso{grid-template-columns:minmax(0,1fr);gap:14px}
+  .paso:nth-child(even) .shot{order:0}
+  .despues{grid-template-columns:minmax(0,1fr)}
+}
+
+/* ---------- aparición al hacer scroll ---------- */
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.js .reveal.in{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  :root{--nav-h:64px}
+  .burger{display:flex}
+  .brand img{width:82px}
+  .links{position:absolute;top:var(--nav-h);left:0;right:0;flex-direction:column;gap:0;padding:8px 16px 16px;
+    background:rgba(12,11,10,.97);border-bottom:1px solid var(--line);box-shadow:0 16px 30px rgba(0,0,0,.6);
+    clip-path:inset(0 0 100% 0);visibility:hidden;transition:clip-path .3s ease,visibility 0s .3s}
+  .links.open{clip-path:inset(0 0 0 0);visibility:visible;transition:clip-path .3s ease}
+  .links a{padding:14px 4px;border-bottom:1px solid var(--line);font-size:.9rem}
+  .links a::after{left:4px;right:auto;width:40px}
+  .nav{background:rgba(12,11,10,.94)}
+  .hero .wrap{grid-template-columns:minmax(0,1fr);gap:20px}
+  .horde{order:-1;max-width:460px;margin:0 auto}
+  .hero{min-height:auto;padding:calc(var(--nav-h) + 28px) 0 64px}
+  section{padding:56px 0}
+}
+@media (max-width:440px){
+  .card .top{grid-template-columns:minmax(0,1fr)}
+  .lists{grid-template-columns:minmax(0,1fr)}
+  .card .top,.body{padding-left:16px;padding-right:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .reveal{opacity:1;transform:none}
+  .js .card:not(.in) .bar i{transform:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav" aria-label="Principal">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Eliot Want To Live, volver arriba"><img src="img/logo_eliot.png" width="420" height="229" alt="Eliot Want To Live"></a>
+    <ul class="links" id="menu">
+      <li><a href="#bestiario">Bestiario</a></li>
+      <li><a href="#como-funcionan">Cómo funcionan</a></li>
+      <li><a href="#tamanos">Tamaños</a></li>
+      <li><a href="#guia">Guía de juego</a></li>
+      <li><a href="#reglas">Sobrevivir</a></li>
+    </ul>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span></button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="linterna" id="linterna"></div>
+  <div class="fog"></div><div class="fog b"></div>
+  <div class="wrap">
+    <div>
+      <div class="kicker">Guía de campo · Infectados</div>
+      <h1>El diario<br>de <span class="sangre" aria-label="Eliot"><span><b class="tinta">E</b><i class="gota" style="--x:22%;--l:.24em;--d:.3s;--t:6.5s"></i><i class="gota" style="--x:80%;--l:.14em;--d:3.9s;--t:7s;--g:.055em"></i></span><span><b class="tinta">l</b><i class="gota" style="--x:50%;--l:.3em;--d:2.2s;--t:5.8s"></i></span><span><b class="tinta">i</b></span><span><b class="tinta">o</b><i class="gota" style="--x:55%;--l:.18em;--d:4.6s;--t:6.2s;--g:.06em"></i></span><span><b class="tinta">t</b><i class="gota" style="--x:46%;--l:.27em;--d:1.2s;--t:7.4s"></i></span></span></h1>
+      <p class="lead">Todo lo que Eliot ha aprendido sobre los muertos que caminan por la ciudad: cómo cazan, qué los hace peligrosos y, sobre todo, cómo seguir vivo un día más.</p>
+      <a class="cta" href="#bestiario">Abrir el bestiario</a>
+    </div>
+    <div class="horde" aria-hidden="true">
+      <div class="fila">
+        <img class="px eliot" src="img/eliot_pistola.png" style="--w:18" width="18" height="46" alt="">
+        <img class="px" src="img/corredor_south.png" style="--w:25" width="25" height="47" alt="">
+        <img class="px" src="img/coloso_south.png" style="--w:64" width="64" height="69" alt="">
+        <img class="px" src="img/enfermera_south.png" style="--w:27" width="27" height="52" alt="">
+        <img class="px" src="img/perro_south-east.png" style="--w:30" width="30" height="35" alt="">
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="cinta" aria-hidden="true"><div>
+  <span>Peligro · Zona infectada</span><span>No entrar</span><span>Peligro · Zona infectada</span><span>No entrar</span><span>Peligro · Zona infectada</span><span>No entrar</span>
+  <span>Peligro · Zona infectada</span><span>No entrar</span><span>Peligro · Zona infectada</span><span>No entrar</span><span>Peligro · Zona infectada</span><span>No entrar</span>
+</div></div>
+
+<section>
+  <div class="wrap" style="max-width:760px">
+    <div class="note reveal">
+      <p>Día 14. Ya no los llamo personas. Al principio intentaba reconocer caras: el cartero, la enfermera del turno de noche, el vecino del cuarto. Ahora solo me fijo en cómo caminan, porque eso me dice cuánto tiempo tengo.</p>
+      <p>Apunto aquí todo lo que voy descubriendo. Si alguien encuentra este cuaderno, que lo use. Que no cometa mis errores.</p>
+      <p class="firma">— Eliot</p>
+    </div>
+  </div>
+</section>
+
+<section id="bestiario">
+  <div class="wrap">
+    <h2 class="reveal">Bestiario</h2>
+    <p class="sub reveal">Trece tipos de infectados conocidos hasta ahora. Pasa el cursor por una ficha (o tócala) para verlo caminar y atacar.</p>
+    <div class="filters" role="group" aria-label="Filtrar por tipo">
+      <button type="button" data-f="todos" aria-pressed="true">Todos</button>
+      <button type="button" data-f="comun" aria-pressed="false">Comunes</button>
+      <button type="button" data-f="especial" aria-pressed="false">Especiales</button>
+      <button type="button" data-f="gigante" aria-pressed="false">Gigantes</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section id="como-funcionan" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <h2 class="reveal">Cómo funcionan</h2>
+    <p class="sub reveal">Todos los infectados comparten unas pocas reglas. Entenderlas es la diferencia entre limpiar una calle y acabar rodeado.</p>
+    <div class="rules">
+      <div class="rule reveal"><div class="ico"><img class="px" src="img/iconos/ojo.png" width="60" height="60" alt=""></div><h3>Deambulan hasta verte</h3><p>Sin estímulos vagan sin rumbo cerca de donde cayeron. En cuanto Eliot entra en su radio de detección, gimen y empiezan a perseguirlo.</p></div>
+      <div class="rule reveal"><div class="ico"><img class="px" src="img/iconos/ruido.png" width="69" height="36" alt=""></div><h3>El ruido los despierta</h3><p>Un disparo se oye en toda la manzana. Un golpe cuerpo a cuerpo hace mucho menos ruido, y una botella rota queda a medio camino. Cada arma de fuego es una invitación.</p></div>
+      <div class="rule reveal"><div class="ico"><img class="px" src="img/iconos/paso.png" width="60" height="60" alt=""></div><h3>Rodean los edificios</h3><p>De lejos buscan un camino alrededor de muros y coches. De cerca van directos hacia ti. Esconderse detrás de algo solo te da unos segundos.</p></div>
+      <div class="rule reveal"><div class="ico"><img class="px" src="img/iconos/molotov.png" width="38" height="54" alt=""></div><h3>El fuego los consume</h3><p>Una molotov los quema poco a poco y cuanto más tiempo arden, más lentos se vuelven: al final caminan a la mitad de su velocidad.</p></div>
+      <div class="rule reveal"><div class="ico"><img class="px" src="img/iconos/golpe.png" width="60" height="60" alt=""></div><h3>Los golpes los frenan</h3><p>Casi todos se tambalean un instante al recibir un impacto, y el bate o el tubo los empujan hacia atrás. Los gigantes no se inmutan.</p></div>
+      <div class="rule reveal"><div class="ico"><img class="px" src="img/iconos/rex.png" width="60" height="60" alt=""></div><h3>Rex los distrae</h3><p>El perro de Eliot muerde y derriba a los infectados. Algunos se olvidan de ti para ir a por él, así que cuídalo: también puede caer herido.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="tamanos">
+  <div class="wrap">
+    <h2 class="reveal">Mídelos antes de pelear</h2>
+    <p class="sub reveal">A escala real junto a Eliot. Los gigantes casi le doblan la altura.</p>
+    <div class="lineup reveal" id="lineup"></div>
+  </div>
+</section>
+
+<section id="guia" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <h2 class="reveal">Guía de juego</h2>
+    <p class="sub reveal">El prólogo paso a paso, con capturas del juego: desde que Eliot despierta en el hospital hasta que llega a la estación de policía con la escopeta, el subfusil y el AR-15. Al final, lo básico para sobrevivir: golpear, esquivar, curarse y usar la molotov. Toca cualquier captura para verla en grande.</p>
+    <nav class="actos reveal" aria-label="Partes de la guía">
+      <a href="#acto-hospital"><b>1</b>El hospital</a>
+      <a href="#acto-ciudad"><b>2</b>La ciudad y las armas</a>
+      <a href="#acto-estacion"><b>3</b>La llave de la estación</a>
+      <a href="#sobrevivir"><b>4</b>Sobrevivir</a>
+      <a href="#controles"><b>5</b>Controles</a>
+    </nav>
+
+    <!-- ===== Acto 1 ===== -->
+    <article class="acto" id="acto-hospital">
+      <header class="reveal"><span class="n">Parte 1</span><h3>El hospital San Rafael</h3>
+        <p>Cinco salas en fila. Cada puerta se abre cuando has hecho lo que pide esa sala: el objetivo siempre está arriba a la izquierda. Ojo: en el prólogo la muerte es permanente. Si Eliot cae, se empieza de nuevo desde aquí.</p></header>
+      <ol class="pasos">
+        <li class="paso reveal">
+          <figure class="shot"><button type="button"><img src="img/guia/h1.webp" width="677" height="381" loading="lazy" alt="Eliot en la habitación 214 junto a la mesa con su historia clínica"></button><figcaption>Habitación 214</figcaption></figure>
+          <div><h4>Despierta en la habitación 214</h4>
+            <p>Eliot sale del coma en una habitación vacía. Acércate a la mesa: cuando aparece la etiqueta <kbd>E</kbd> sobre un objeto, puedes usarlo. Lee la <strong>historia clínica</strong> para saber qué le pasó y abrir la puerta.</p>
+            <div class="teclas"><span><kbd>WASD</kbd> moverse</span><span><kbd>E</kbd> interactuar</span></div></div>
+        </li>
+        <li class="paso reveal">
+          <figure class="shot"><button type="button"><img src="img/guia/h2.webp" width="800" height="450" loading="lazy" alt="Eliot agachado registrando una caja en el pasillo, con la barra de progreso sobre la cabeza"></button><figcaption>Pasillo: registrando una caja</figcaption></figure>
+          <div><h4>Registra las cajas del pasillo</h4>
+            <p>Mantén <kbd>E</kbd> junto a una caja: Eliot se agacha y una barra amarilla muestra cuánto falta. <strong>Si te mueves o te golpean, se interrumpe.</strong> Las cajas pueden tener balas, vendajes, botiquines, molotovs… o nada.</p>
+            <p>Si examinas la puerta de cuarentena, algo golpea desde dentro. Todavía no hay zombis sueltos.</p></div>
+        </li>
+        <li class="paso reveal">
+          <figure class="shot"><button type="button"><img src="img/guia/h3.webp" width="705" height="397" loading="lazy" alt="El almacén del hospital con el bate en el suelo junto a Eliot y la ficha del arma"></button><figcaption>Almacén: el bate</figcaption></figure>
+          <div><h4>Consigue el bate en el almacén</h4>
+            <p>El bate brilla en el suelo; al acercarte ves su ficha (daño, crítico y durabilidad). Tómalo con <kbd>E</kbd> y prueba un golpe. Cada golpe gasta durabilidad: cuando se rompe, busca otro bate o un tubo por la ciudad.</p>
+            <div class="teclas"><span><kbd>F</kbd> / clic derecho: golpear</span><span><kbd>Espacio</kbd> esquivar</span></div></div>
+        </li>
+        <li class="paso reveal">
+          <figure class="shot"><button type="button"><img src="img/guia/h4.webp" width="800" height="450" loading="lazy" alt="Eliot golpea con el bate a dos zombis en urgencias; el borde de la pantalla se tiñe de rojo"></button><figcaption>Urgencias: el primer combate</figcaption></figure>
+          <div><h4>Urgencias: los primeros infectados</h4>
+            <p>Dos zombis salen de detrás de las cortinas. Golpea y retrocede: el bate los empuja y los aturde un instante. Cuando te hacen daño, el borde de la pantalla se pone rojo.</p>
+            <p class="ojo">No te dejes rodear: golpea al que tengas delante y esquiva hacia un lado.</p></div>
+        </li>
+        <li class="paso reveal">
+          <figure class="shot duo">
+            <button type="button"><img src="img/guia/h5.webp" width="800" height="450" loading="lazy" alt="Eliot frente al mostrador de recepción con la etiqueta Leer aviso"></button>
+            <button type="button"><img src="img/guia/h6.webp" width="800" height="450" loading="lazy" alt="Una oleada de zombis entra en la recepción y Eliot los recibe con el bate"></button>
+            <figcaption>Recepción: el aviso y la oleada</figcaption></figure>
+          <div><h4>Recepción: resiste y sal a la calle</h4>
+            <p>Lee el <strong>aviso de evacuación</strong> del mostrador. Al hacerlo, entran dos oleadas por la ventana rota. Cuando acabes con ellas, la puerta principal se abre.</p>
+            <p>Puedes volver a salas anteriores por la puerta del fondo de cada una (menos en plena oleada).</p></div>
+        </li>
+      </ol>
+    </article>
+
+    <!-- ===== Acto 2 ===== -->
+    <article class="acto" id="acto-ciudad">
+      <header class="reveal"><span class="n">Parte 2</span><h3>La ciudad y las armas</h3>
+        <p>Fuera, la calle está destruida. El objetivo es llegar a la estación de policía, al norte, pero por el camino hay tres armas que conviene no dejar atrás.</p></header>
+      <ol class="pasos">
+        <li class="paso reveal">
+          <figure class="shot duo">
+            <button type="button"><img src="img/guia/c1.webp" width="800" height="450" loading="lazy" alt="Eliot junto al coche patrulla y el policía caído frente al hospital"></button>
+            <button type="button"><img src="img/guia/c2.webp" width="800" height="450" loading="lazy" alt="Diálogo: alguien rodeó dos zonas en el mapa y escribió armas"></button>
+            <figcaption>El policía caído frente al hospital</figcaption></figure>
+          <div><h4>Revisa el coche de policía</h4>
+            <p>Junto al coche patrulla hay un policía muerto. Revísalo con <kbd>E</kbd>: Eliot se queda con su <strong>pistola 9 mm</strong> y con el <strong>mapa del patrullero</strong>.</p>
+            <p>En cuanto la tienes, aparecen los primeros zombis de la calle.</p>
+            <div class="teclas"><span>Clic izquierdo: disparar</span><span><kbd>R</kbd> recargar</span></div></div>
+        </li>
+        <li class="paso reveal">
+          <figure class="shot"><button type="button"><img src="img/guia/c3.webp" width="800" height="450" loading="lazy" alt="Mapa ampliado de la ciudad con la estación al norte y dos círculos marcados con ¿armas?"></button><figcaption>El mapa del patrullero (tecla M)</figcaption></figure>
+          <div><h4>Lee el mapa: dos zonas con «¿armas?»</h4>
+            <p>Arriba a la derecha aparece el radar. Pulsa <kbd>M</kbd> para ampliarlo. Además de la estación, el policía rodeó a mano dos zonas:</p>
+            <p><strong style="color:#6fd16f">Círculo verde</strong>: un campamento militar.<br><strong style="color:#7fb0ff">Círculo azul</strong>: un furgón SWAT volcado.</p>
+            <p>Los círculos son aproximados: el arma está en <strong>una caja al azar</strong> dentro de la zona, así que hay que registrar.</p></div>
+        </li>
+        <li class="paso reveal">
+          <figure class="shot"><button type="button"><img src="img/guia/c4.webp" width="800" height="450" loading="lazy" alt="Eliot dispara con la pistola a un grupo de zombis frente al hospital"></button><figcaption>Una horda al cruzar la calle</figcaption></figure>
+          <div><h4>Cruza las calles con cuidado</h4>
+            <p>Al cruzar cada calle principal se desata una horda. Los disparos hacen ruido y atraen a más infectados; si son pocos, el bate es más silencioso. Los zombis que caen pueden soltar balas o botiquines.</p>
+            <p class="ojo">Las balas se guardan por calibre aunque aún no tengas el arma: no dejes cajas de munición en el suelo.</p></div>
+        </li>
+        <li class="paso reveal">
+          <figure class="shot duo">
+            <button type="button"><img src="img/guia/c5.webp" width="800" height="450" loading="lazy" alt="Campamento militar: la escopeta y el subfusil en el suelo junto a las cajas abiertas"></button>
+            <button type="button"><img src="img/guia/c6.webp" width="800" height="450" loading="lazy" alt="Mensaje Obtienes escopeta de bombeo y la nueva tarjeta de arma en el HUD"></button>
+            <figcaption>Campamento militar: escopeta y subfusil</figcaption></figure>
+          <div><h4>Círculo verde: el campamento militar</h4>
+            <p>Junto a la carpa hay un soldado caído y varias cajas militares. Registra las cajas hasta que salgan la <strong>escopeta de bombeo</strong> y el <strong>subfusil 9 mm</strong>, cada uno en una caja distinta.</p>
+            <p>Cada arma nueva aparece como tarjeta abajo a la derecha. Cambia entre ellas con <kbd>Q</kbd>, la rueda del ratón o <kbd>1</kbd>–<kbd>4</kbd>.</p></div>
+        </li>
+        <li class="paso reveal">
+          <figure class="shot duo">
+            <button type="button"><img src="img/guia/c7.webp" width="800" height="450" loading="lazy" alt="Eliot junto al furgón SWAT con la etiqueta Registrar maletín blindado"></button>
+            <button type="button"><img src="img/guia/c9.webp" width="800" height="450" loading="lazy" alt="Mensaje Obtienes AR-15 y cuatro tarjetas de arma en el HUD"></button>
+            <figcaption>Furgón SWAT: el AR-15</figcaption></figure>
+          <div><h4>Círculo azul: el furgón SWAT</h4>
+            <p>En el aparcamiento hay un furgón SWAT volcado y varias cajas alrededor. Una de ellas es el <strong>maletín blindado</strong> con el <strong>AR-15</strong>, el arma más precisa del prólogo.</p>
+            <p>Con esto ya llevas las cuatro armas de fuego.</p></div>
+        </li>
+      </ol>
+
+      <div class="arsenal reveal" aria-label="Armas del prólogo">
+        <div class="arma"><div class="ico"><img src="img/iconos/pistola_icono.png" width="64" height="48" alt=""></div><div><h5>Pistola 9 mm</h5><p class="donde">El policía caído</p><p>12 balas. Fiable y precisa.</p></div></div>
+        <div class="arma"><div class="ico"><img src="img/iconos/escopeta_icono.png" width="84" height="24" alt=""></div><div><h5>Escopeta de bombeo</h5><p class="donde">Campamento militar</p><p>6 cartuchos, 7 perdigones. Brutal de cerca y corta de alcance.</p></div></div>
+        <div class="arma"><div class="ico"><img src="img/iconos/subfusil_icono.png" width="80" height="32" alt=""></div><div><h5>Subfusil 9 mm</h5><p class="donde">Campamento militar</p><p>30 balas, la mayor cadencia. Gasta munición deprisa.</p></div></div>
+        <div class="arma"><div class="ico"><img src="img/iconos/fusil_icono.png" width="84" height="32" alt=""></div><div><h5>AR-15</h5><p class="donde">Furgón SWAT</p><p>30 balas, el mayor alcance y el mejor crítico.</p></div></div>
+      </div>
+    </article>
+
+    <!-- ===== Acto 3 ===== -->
+    <article class="acto" id="acto-estacion">
+      <header class="reveal"><span class="n">Parte 3</span><h3>La llave de la estación</h3>
+        <p>La estación de policía está al norte del mapa. Llegar no es suficiente: hace falta una llave.</p></header>
+      <ol class="pasos">
+        <li class="paso reveal">
+          <figure class="shot"><button type="button"><img src="img/guia/e1.webp" width="800" height="450" loading="lazy" alt="Eliot frente a la puerta de la estación de policía; habla una voz por el intercomunicador"></button><figcaption>La puerta blindada está trabada</figcaption></figure>
+          <div><h4>La puerta no se abre</h4>
+            <p>Por el intercomunicador te explican que la puerta blindada quedó trabada. Sin la <strong>llave maestra del sargento Ortega</strong> no se abre ni desde dentro. Su patrulla ardió en la avenida del oeste.</p>
+            <p>Desde ese momento los zombis son más rápidos y aguantan más.</p></div>
+        </li>
+        <li class="paso reveal">
+          <figure class="shot"><button type="button"><img src="img/guia/e2.webp" width="800" height="450" loading="lazy" alt="Eliot junto a una patrulla calcinada en la avenida oeste con la etiqueta Registrar patrulla calcinada"></button><figcaption>Las patrullas calcinadas, zona oeste</figcaption></figure>
+          <div><h4>Registra las patrullas calcinadas</h4>
+            <p>El mapa marca una zona de búsqueda al oeste («¿LLAVE?»). Hay dos patrullas quemadas y la llave está en una de ellas, distinta en cada partida. Si no está en la primera, Eliot te lo dice: ve a la otra.</p></div>
+        </li>
+        <li class="paso reveal">
+          <figure class="shot"><button type="button"><img src="img/guia/e3.webp" width="800" height="450" loading="lazy" alt="Zombis enrojecidos rodean a Eliot junto a la patrulla mientras dispara con el AR-15"></button><figcaption>¡Oleada fuerte!</figcaption></figure>
+          <div><h4>Vuelve con la llave… si puedes</h4>
+            <p>Al encontrar la llave llega una <strong>oleada fuerte</strong>: zombis enrojecidos, con más vida, más rápidos y que pegan más. No te quedes a pelear: abre camino hacia el norte y vuelve a la puerta.</p>
+            <p>Úsala con <kbd>E</kbd>. Los policías te cubren desde dentro.</p></div>
+        </li>
+        <li class="paso reveal">
+          <figure class="shot duo">
+            <button type="button"><img src="img/guia/e4.webp" width="800" height="450" loading="lazy" alt="Pantalla Sobreviviste: pero la historia apenas comienza, partida guardada"></button>
+            <button type="button"><img src="img/guia/e5.webp" width="800" height="450" loading="lazy" alt="Vista general de la estación de policía por dentro, con sus salas"></button>
+            <figcaption>Fin del prólogo y la estación por dentro</figcaption></figure>
+          <div><h4>¡Sobreviviste!</h4>
+            <p>Termina el prólogo y la partida se guarda. A partir de aquí, la estación es tu base: hablas con los supervivientes, aceptas misiones y sales a la ciudad a por suministros.</p>
+            <p>Si mueres después del prólogo, despiertas en la estación: pierdes lo que llevabas en esa salida, pero conservas la historia, las misiones y lo que guardaste.</p></div>
+        </li>
+      </ol>
+    </article>
+
+    <!-- ===== Sobrevivir ===== -->
+    <div class="acto" id="sobrevivir">
+      <header class="reveal"><span class="n">Lo básico</span><h3>Cómo seguir vivo</h3>
+        <p>Seis cosas que conviene dominar antes de salir del hospital.</p></header>
+      <div class="mecs">
+        <article class="mec reveal">
+          <figure class="shot"><button type="button"><img src="img/guia/m_golpe.webp" width="800" height="450" loading="lazy" alt="Eliot golpea con el bate a un zombi, que se pone blanco por el impacto: 50 de daño crítico"></button></figure>
+          <div class="txt"><h4>Golpear</h4><p>El bate y el tubo no hacen ruido ni gastan balas. Cada golpe gasta energía (la barra amarilla) y durabilidad del arma. El número amarillo con «!» es un crítico.</p>
+            <div class="teclas"><span><kbd>F</kbd> / clic derecho</span><span>Móvil: botón GOLPE</span></div></div>
+        </article>
+        <article class="mec reveal">
+          <figure class="shot"><button type="button"><img src="img/guia/m_esquivar.webp" width="800" height="450" loading="lazy" alt="Eliot rueda hacia un lado para escapar de dos zombis"></button></figure>
+          <div class="txt"><h4>Esquivar</h4><p>Una rodada corta en la dirección en la que caminas. Mientras dura, nada te hace daño. Cuesta 25 de energía: guárdala para salir de un cerco.</p>
+            <div class="teclas"><span><kbd>Espacio</kbd></span><span>Móvil: botón RODAR</span></div></div>
+        </article>
+        <article class="mec reveal">
+          <figure class="shot"><button type="button"><img src="img/guia/m_molotov.webp" width="800" height="450" loading="lazy" alt="Un grupo de zombis arde tras caer la molotov a su lado"></button></figure>
+          <div class="txt"><h4>Lanzar la molotov</h4><p><strong>Mantén</strong> <kbd>G</kbd>: aparece una mira donde caerá la botella. Apunta con el ratón al grupo y <strong>suelta</strong> para lanzar. Para cancelar sin gastarla, pulsa <kbd>F</kbd> o clic derecho antes de soltar.</p>
+            <p>El fuego hace daño durante un rato y los zombis que arden caminan cada vez más despacio.</p>
+            <div class="teclas"><span>Mantener <kbd>G</kbd> + apuntar</span><span>Móvil: arrastrar el botón G</span></div></div>
+        </article>
+        <article class="mec reveal">
+          <figure class="shot duo">
+            <button type="button"><img src="img/guia/m_vendaje.webp" width="800" height="450" loading="lazy" alt="Eliot se pone un vendaje; una barra azul sobre su cabeza muestra el progreso"></button>
+            <button type="button"><img src="img/guia/m_botiquin.webp" width="800" height="450" loading="lazy" alt="Eliot usa un botiquín mientras camina; barra verde sobre su cabeza"></button>
+          </figure>
+          <div class="txt"><h4>Curarse</h4><p><strong>Vendaje rápido</strong> (<kbd>V</kbd>, barra azul): 1,2 s y +25 de vida. <strong>Botiquín</strong> (<kbd>H</kbd>, barra verde): 2,5 s y +40.</p>
+            <p>Mantén la tecla. Puedes caminar despacio mientras te curas, pero si te golpean, disparas o sueltas la tecla, se interrumpe y no se gasta el objeto.</p>
+            <div class="teclas"><span>Mantener <kbd>V</kbd> / <kbd>H</kbd></span><span>Móvil: tocar el icono</span></div></div>
+        </article>
+        <article class="mec reveal">
+          <figure class="shot"><button type="button"><img src="img/guia/m_registrar.webp" width="800" height="450" loading="lazy" alt="Eliot agachado registra una caja; barra amarilla de progreso"></button></figure>
+          <div class="txt"><h4>Registrar cajas y coches</h4><p>Tardas unos segundos y te quedas expuesto. Antes de agacharte, mira el radar: los puntos rojos son zombis cerca.</p>
+            <div class="teclas"><span>Mantener <kbd>E</kbd></span><span>Móvil: botón verde</span></div></div>
+        </article>
+        <article class="mec reveal">
+          <figure class="shot"><button type="button"><img src="img/guia/m_mochila.webp" width="800" height="450" loading="lazy" alt="Panel de la mochila abierto con 6 espacios y el equipo: vendajes, botiquín, molotovs y balas"></button></figure>
+          <div class="txt"><h4>La mochila</h4><p>Muestra tu equipo y, tras el prólogo, los suministros que recoges (6 espacios). No pausa el juego. Los suministros se guardan al volver a la estación.</p>
+            <div class="teclas"><span><kbd>Tab</kbd> / <kbd>I</kbd></span><span>Móvil: tocar la mochila</span></div></div>
+        </article>
+      </div>
+    </div>
+
+    <!-- ===== Controles ===== -->
+    <div class="acto" id="controles">
+      <header class="reveal"><span class="n">Referencia</span><h3>Controles</h3>
+        <p>El juego funciona con teclado y ratón, mando o pantalla táctil (el móvil, en horizontal).</p></header>
+      <div class="tabla reveal">
+        <table class="controles">
+          <thead><tr><th scope="col">Acción</th><th scope="col">Teclado y ratón</th><th scope="col">Mando</th><th scope="col">Móvil</th></tr></thead>
+          <tbody>
+            <tr><td>Moverse / correr</td><td><kbd>WASD</kbd> · <kbd>Shift</kbd></td><td>Stick izq. · LB</td><td>Joystick izquierdo</td></tr>
+            <tr><td>Apuntar y disparar</td><td>Ratón · clic izquierdo</td><td>Stick der. · RT</td><td>Joystick derecho (tocar: dispara)</td></tr>
+            <tr><td>Recargar</td><td><kbd>R</kbd></td><td>X</td><td>Tocar la tarjeta del arma</td></tr>
+            <tr><td>Cambiar de arma</td><td><kbd>Q</kbd> · rueda · <kbd>1</kbd>–<kbd>4</kbd></td><td>Y</td><td>Tocar otra tarjeta</td></tr>
+            <tr><td>Golpear</td><td><kbd>F</kbd> · clic derecho</td><td>R3</td><td>GOLPE</td></tr>
+            <tr><td>Esquivar</td><td><kbd>Espacio</kbd></td><td>Cruceta derecha</td><td>RODAR</td></tr>
+            <tr><td>Molotov</td><td>Mantener <kbd>G</kbd></td><td>B + stick der.</td><td>Arrastrar G</td></tr>
+            <tr><td>Vendaje / botiquín</td><td>Mantener <kbd>V</kbd> / <kbd>H</kbd></td><td>Cruceta arriba / abajo</td><td>Tocar el icono</td></tr>
+            <tr><td>Interactuar / registrar</td><td><kbd>E</kbd></td><td>A</td><td>Botón verde</td></tr>
+            <tr><td>Mapa · mochila</td><td><kbd>M</kbd> · <kbd>Tab</kbd></td><td>Select · LT</td><td>Tocar el radar · la mochila</td></tr>
+            <tr><td>Pausa</td><td><kbd>Esc</kbd></td><td>Start</td><td>Botón II</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<dialog class="visor" id="visor" aria-label="Captura ampliada">
+  <img src="" alt="">
+  <p></p>
+  <button type="button" aria-label="Cerrar">✕</button>
+</dialog>
+
+<section id="reglas" style="background:var(--bg2);border-top:1px solid var(--line)">
+  <div class="wrap">
+    <h2 class="reveal">Reglas para seguir vivo</h2>
+    <p class="sub reveal">Arrancadas de las últimas páginas del cuaderno.</p>
+    <div class="tips">
+      <div class="note reveal"><h3>1. El silencio es munición</h3><p>Si puedes resolverlo con el bate, no dispares. Cada tiro atrae a todo lo que hay en la manzana, y las balas no sobran.</p></div>
+      <div class="note reveal"><h3>2. Fuego a los grupos</h3><p>Guarda las molotov para cuando se amontonen. Y si ves a un hinchado en medio del grupo, revientalo de lejos: hará el trabajo por ti.</p></div>
+      <div class="note reveal"><h3>3. A los grandes, nunca de frente</h3><p>Los brutos son lentos. Retrocede, dispara, vuelve a retroceder. Si te alcanzan, un solo golpe te deja temblando.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="team"><span>Un juego de</span><img src="img/logo_equipo_rojo.png" width="380" height="148" alt="Equipo Rojo"></div><br>
+    <strong>Eliot Want To Live</strong><br>
+    Supervivencia zombi de vista cenital. Datos tomados de la versión 1.0.3; pueden cambiar con el desarrollo.
+  </div>
+</footer>
+
+<script>
+// Valores tomados del juego (v1.0.3). Las barras se normalizan contra el máximo de cada columna.
+const Z = [
+  {id:"comun", nombre:"Común", alias:"El vecino de al lado", cat:"comun", w:23,h:47, vida:60, vel:44, dano:10,
+   desc:"El infectado más habitual. Lento, torpe y previsible, pero rara vez está solo: donde hay uno, hay diez más cerca.",
+   q:["Aparece en grupos","Persigue sin descanso una vez te ve"],
+   w2:["Se tambalea con cada golpe","Dos o tres batazos bastan","Lento: puedes dejarlo atrás"],
+   tip:"Practica con ellos el golpe con el bate. No gastes balas aquí.", cuando:"Desde el primer día"},
+  {id:"mujer", nombre:"Civil", alias:"La que iba de compras", cat:"comun", w:25,h:45, vida:50, vel:52, dano:9,
+   desc:"Antiguas habitantes del barrio. Más ágiles que el común, cierran distancia antes de lo que esperas.",
+   q:["Algo más rápida que el común"],
+   w2:["Poca resistencia","Cae rápido con cualquier arma"],
+   tip:"No la subestimes por frágil: es la que te alcanza mientras miras a otro.", cuando:"Desde el primer día"},
+  {id:"enfermera", nombre:"Enfermera", alias:"El turno de noche", cat:"comun", w:27,h:52, vida:50, vel:52, dano:9,
+   desc:"El hospital fue de los primeros lugares en caer. Rápidas y numerosas en las zonas sanitarias.",
+   q:["Rápida para ser un infectado común","Abundan cerca del hospital"],
+   w2:["Muy poca vida","Se aturde con facilidad"],
+   tip:"En el hospital, avanza despacio y escucha antes de doblar cada esquina.", cuando:"Desde el primer día"},
+  {id:"obrero", nombre:"Obrero", alias:"Casco amarillo", cat:"comun", w:30,h:48, vida:75, vel:42, dano:11,
+   desc:"Trabajadores de la construcción que no dejaron la obra. Corpulentos y algo más duros que la media.",
+   q:["Aguanta un golpe más que el común","Pega un poco más fuerte"],
+   w2:["Lento","Sin ningún truco especial"],
+   tip:"Un golpe extra y listo. El casco no lo protege de nada.", cuando:"Desde el primer día"},
+  {id:"policia", nombre:"Policía", alias:"Fuera de servicio", cat:"comun", w:30,h:47, vida:80, vel:44, dano:11,
+   desc:"Agentes que intentaron contener el brote. Resistentes y, a veces, todavía cargan munición encima.",
+   q:["Bastante resistente para su tipo"],
+   w2:["Ritmo de un común","Suele soltar munición al caer"],
+   tip:"Vale la pena acabar con ellos: sus bolsillos suelen traer balas.", cuando:"Desde el primer día"},
+  {id:"militar", nombre:"Militar", alias:"La última línea", cat:"comun", w:20,h:46, vida:100, vel:42, dano:13,
+   desc:"Soldados de los puestos de control. El uniforme de combate los hace los más duros entre los comunes.",
+   q:["El común con más vida","Pega fuerte"],
+   w2:["Lento","Muy probable que suelte munición"],
+   tip:"Mantén la distancia y apunta con calma. La recompensa compensa.", cuando:"Desde el primer día"},
+  {id:"corredor", nombre:"Corredor", alias:"El que no se cansa", cat:"especial", w:25,h:47, vida:32, vel:82, dano:9,
+   desc:"Corre en vez de arrastrarse. Te ve desde más lejos y llega antes que nadie. Si oyes pasos rápidos, date la vuelta.",
+   q:["Casi el doble de rápido que un común","Detecta a Eliot desde más lejos"],
+   w2:["Muy frágil: uno o dos impactos","Pega poco"],
+   tip:"No huyas de un corredor: no puedes. Plántate y dispara.", cuando:"Tras el prólogo"},
+  {id:"perro", nombre:"Perro infectado", alias:"Lo que queda de una mascota", cat:"especial", w:30,h:35, vida:22, vel:118, dano:7, alt:"south",
+   desc:"El infectado más veloz de la ciudad. Pequeño, difícil de apuntar y siempre en movimiento. Huele a Eliot antes de verlo.",
+   q:["El más rápido de todos","El mayor radio de detección","Blanco pequeño"],
+   w2:["La menor vida de todos","Un solo disparo suele bastar"],
+   tip:"Espera a que se acerque en línea recta. Un tiro, y no vuelve a levantarse.", cuando:"Tras el prólogo"},
+  {id:"vomitivo", nombre:"Vomitivo", alias:"Bilis ácida", cat:"especial", w:21,h:49, vida:60, vel:40, dano:12,
+   desc:"No necesita tocarte. Escupe bolas de ácido desde lejos y te ve antes que los demás.",
+   q:["Ataca a distancia con ácido","Detecta desde lejos","Te castiga si te quedas quieto"],
+   w2:["Tarda en volver a escupir","Lento y con poca vida","Las bolas se pueden esquivar"],
+   tip:"Esquiva el escupitajo de lado y corre hacia él justo después: está recargando.", cuando:"Tras la misión 1"},
+  {id:"blindado", nombre:"Blindado", alias:"Antidisturbios", cat:"especial", w:34,h:50, vida:170, vel:38, dano:14,
+   desc:"Policía antidisturbios con casco y protecciones. Las balas lo empujan poco y apenas se tambalea.",
+   q:["Casi el triple de vida que un común","Apenas retrocede con los disparos","Casi no se aturde"],
+   w2:["Muy lento","Suele soltar munición","Arde como cualquier otro"],
+   tip:"Una molotov y camina a medio ritmo mientras se quema. Remata con el tubo.", cuando:"Tras la misión 1"},
+  {id:"explosivo", nombre:"Hinchado", alias:"La bomba andante", cat:"especial", w:67,h:65, vida:70, vel:36, dano:34,
+   desc:"Su cuerpo está lleno de gases. Cuando te alcanza se hincha y revienta, y si lo matas también estalla. La explosión hiere a todo lo que esté cerca, infectados incluidos.",
+   q:["Explosión de área muy dañina","No suelta nada al morir"],
+   w2:["El más lento de su grupo","Su explosión daña a otros zombis","Fácil de ver venir"],
+   tip:"Nunca lo remates de cerca. Espera a que se meta en un grupo y dispárale.", cuando:"Tras la misión 2"},
+  {id:"bruto", nombre:"Bruto", alias:"El mutante", cat:"gigante", w:56,h:71, vida:240, vel:34, dano:24, big:true,
+   desc:"La infección siguió creciendo dentro de él. Garras, espinas y casi el doble de la altura de Eliot. Nada lo detiene.",
+   q:["Vida enorme","Golpes devastadores","No se aturde ni retrocede","Rex no puede derribarlo"],
+   w2:["Muy lento","Suele soltar botiquín","El fuego lo frena igual que a todos"],
+   tip:"Dispara y retrocede. Nunca te quedes a su alcance más de un segundo.", cuando:"Tras la misión 2"},
+  {id:"coloso", nombre:"Coloso", alias:"El tanque", cat:"gigante", w:64,h:69, vida:320, vel:30, dano:30, big:true,
+   desc:"El infectado más grande y resistente conocido. Cada uno de sus golpes puede quitarle a Eliot un tercio de la vida.",
+   q:["La mayor vida de todos","El golpe más fuerte cuerpo a cuerpo","Inmune al aturdimiento y a Rex"],
+   w2:["El más lento de todos","Suele soltar botiquín","Blanco enorme: imposible fallar"],
+   tip:"Si oyes pisadas pesadas, busca espacio abierto. En un callejón estrecho, estás muerto.", cuando:"Tras la misión 3"}
+];
+const max = k => Math.max(...Z.map(z => z[k]));
+const MV = max("vida"), MS = max("vel"), MD = max("dano");
+const ETQ = {comun:"Común", especial:"Especial", gigante:"Gigante"};
+// Animaciones sacadas del juego (img/anim/<id>.png): tira con los cuadros de caminar y luego los de atacar.
+// Generadas por _herramientas/hacer_animaciones.py; si se regeneran, actualizar también este objeto.
+const ANIM = {"comun":{"w":43,"h":48,"walk":[8,9.0],"attack":[8,12.0]},"mujer":{"w":42,"h":48,"walk":[8,9.0],"attack":[8,12.0]},"enfermera":{"w":39,"h":53,"walk":[8,9.0],"attack":[8,12.0]},"obrero":{"w":59,"h":55,"walk":[8,9.0],"attack":[8,12.0]},"policia":{"w":45,"h":49,"walk":[8,9.0],"attack":[8,12.0]},"militar":{"w":41,"h":48,"walk":[8,9.0],"attack":[8,12.0]},"corredor":{"w":44,"h":56,"walk":[8,9.0],"attack":[8,12.0]},"perro":{"w":44,"h":39,"walk":[8,12.0],"attack":[8,12.0]},"vomitivo":{"w":42,"h":50,"walk":[8,9.0],"attack":[8,12.0]},"blindado":{"w":53,"h":51,"walk":[8,9.0],"attack":[8,12.0]},"explosivo":{"w":87,"h":67,"walk":[8,8.0],"attack":[8,10.0]},"bruto":{"w":83,"h":75,"walk":[8,9.0],"attack":[8,12.0]},"coloso":{"w":70,"h":75,"walk":[8,9.0],"attack":[8,12.0]}};
+const pct = (v,m) => Math.max(6, Math.round(v / m * 100));
+const escala = a => a.h * 3 <= 176 ? 3 : 2;   // los grandes a x2 para que quepan; la fila de tamaños muestra la escala real
+const grid = document.getElementById("grid");
+grid.innerHTML = Z.map(z => {
+  const a = ANIM[z.id], s = escala(a);
+  return `<article class="card reveal" data-cat="${z.cat}" data-id="${z.id}" tabindex="0" aria-label="${z.nombre}: pasa el cursor o pulsa para ver su animación">
+    <div class="stage">
+      <canvas data-anim="${z.id}" style="width:${a.w*s}px;height:${a.h*s}px" role="img" aria-label="${z.nombre}"></canvas>
+    </div>
+    <div class="top">
+      <div class="who">
+        <span class="tag ${z.cat}">${ETQ[z.cat]}</span>
+        <h3>${z.nombre}</h3>
+        <p class="alias">${z.alias}</p>
+      </div>
+      <div class="stats">
+        <div class="stat">Vida<div class="bar v"><i style="width:${pct(z.vida,MV)}%"></i></div></div>
+        <div class="stat">Velocidad<div class="bar s"><i style="width:${pct(z.vel,MS)}%"></i></div></div>
+        <div class="stat">Daño<div class="bar d"><i style="width:${pct(z.dano,MD)}%"></i></div></div>
+      </div>
+    </div>
+    <div class="body">
+      <p class="desc">${z.desc}</p>
+      <div class="lists">
+        <div class="q"><h4>Cualidades</h4><ul>${z.q.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+        <div class="w"><h4>Debilidades</h4><ul>${z.w2.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+      </div>
+      <p class="tip">${z.tip}</p>
+      <div class="when">Aparece: <strong>${z.cuando}</strong></div>
+    </div>
+  </article>`;
+}).join("");
+
+// ---------- reproductor de animaciones (un solo bucle para todos los canvas) ----------
+const activos = new Set();
+function crearAnimador(canvas, secuencia) {
+  const a = ANIM[canvas.dataset.anim];
+  canvas.width = a.w; canvas.height = a.h;
+  const ctx = canvas.getContext("2d");
+  const img = new Image();
+  const p = {a, secuencia, paso: 0, cuadro: +(canvas.dataset.desfase || 0), t: 0, onCambio: null};
+  const base = {walk: 0, attack: a.walk[0]};   // primer cuadro de cada animación dentro de la tira
+  p.dibujar = () => {
+    if (!img.complete) return;
+    const nombre = p.secuencia[p.paso];
+    const i = base[nombre] + (p.cuadro % a[nombre][0]);
+    ctx.imageSmoothingEnabled = false;
+    ctx.clearRect(0, 0, a.w, a.h);
+    ctx.drawImage(img, i * a.w, 0, a.w, a.h, 0, 0, a.w, a.h);
+  };
+  p.reiniciar = () => { p.paso = 0; p.cuadro = 0; p.t = 0; p.dibujar(); };
+  p.avanzar = dt => {
+    p.t += dt;
+    let [n, fps] = a[p.secuencia[p.paso]];
+    while (p.t >= 1 / fps) {
+      p.t -= 1 / fps;
+      if (++p.cuadro >= n) {
+        p.cuadro = 0;
+        p.paso = (p.paso + 1) % p.secuencia.length;
+        if (p.onCambio) p.onCambio(p.secuencia[p.paso]);
+        [n, fps] = a[p.secuencia[p.paso]];
+      }
+    }
+    p.dibujar();
+  };
+  img.onload = p.dibujar;
+  img.src = `img/anim/${canvas.dataset.anim}.png`;
+  return p;
+}
+let ultimo = 0;
+function bucle(ms) {
+  const dt = ultimo ? Math.min(0.1, (ms - ultimo) / 1000) : 0;
+  ultimo = ms;
+  activos.forEach(p => p.avanzar(dt));
+  requestAnimationFrame(bucle);
+}
+requestAnimationFrame(bucle);
+
+// fichas: al pasar el cursor (o al tocar / enfocar con teclado) caminan dos ciclos y atacan, en bucle
+grid.querySelectorAll(".card").forEach(card => {
+  const p = crearAnimador(card.querySelector("canvas"), ["walk", "walk", "attack"]);
+  const iniciar = () => {
+    if (card.classList.contains("playing")) return;
+    card.classList.add("playing"); p.reiniciar(); activos.add(p);
+  };
+  const parar = () => {
+    card.classList.remove("playing"); activos.delete(p); p.reiniciar();
+  };
+  card._parar = parar;
+  let tipo = "mouse";
+  card.addEventListener("pointerdown", e => tipo = e.pointerType);
+  card.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") iniciar(); });
+  card.addEventListener("pointerleave", e => { if (e.pointerType === "mouse") parar(); });
+  card.addEventListener("click", () => {
+    if (tipo === "mouse") return;   // con ratón ya se anima al pasar por encima
+    const estaba = card.classList.contains("playing");
+    grid.querySelectorAll(".card.playing").forEach(c => c._parar());
+    if (!estaba) iniciar();
+  });
+  card.addEventListener("keydown", e => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    e.preventDefault();
+    card.classList.contains("playing") ? parar() : iniciar();
+  });
+  card.addEventListener("focusout", e => { if (!card.contains(e.relatedTarget)) parar(); });
+});
+
+document.querySelectorAll(".filters button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".filters button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  const f = b.dataset.f;
+  grid.querySelectorAll(".card").forEach(c => c.hidden = f !== "todos" && c.dataset.cat !== f);
+}));
+
+// fila de tamaños: Eliot primero, luego de menor a mayor altura
+const L = 2;
+const fila = [{id:"eliot", nombre:"Eliot", w:18, h:46, src:"img/eliot.png"},
+  ...[...Z].sort((a,b) => a.h - b.h).map(z => ({...z, src:`img/${z.id}_${z.id==="perro"?"south-east":"south"}.png`}))];
+document.getElementById("lineup").innerHTML = fila.map(z =>
+  `<figure><img class="px" src="${z.src}" width="${z.w*L}" height="${z.h*L}" alt="${z.nombre}" loading="lazy"><figcaption>${z.nombre}</figcaption></figure>`).join("");
+</script>
+<script>
+// navbar: fondo sólido al bajar, menú móvil y enlace activo
+const nav = document.getElementById("nav"), burger = nav.querySelector(".burger"), menu = document.getElementById("menu");
+const solid = () => nav.classList.toggle("solid", scrollY > 40);
+addEventListener("scroll", solid, {passive:true}); solid();
+const cerrar = () => { menu.classList.remove("open"); burger.setAttribute("aria-expanded","false"); burger.setAttribute("aria-label","Abrir menú"); };
+burger.addEventListener("click", () => {
+  const abrir = !menu.classList.contains("open");
+  menu.classList.toggle("open", abrir); burger.setAttribute("aria-expanded", abrir); burger.setAttribute("aria-label", abrir ? "Cerrar menú" : "Abrir menú");
+});
+menu.querySelectorAll("a").forEach(a => a.addEventListener("click", cerrar));
+addEventListener("keydown", e => { if (e.key === "Escape") cerrar(); });
+addEventListener("resize", () => { if (innerWidth > 860) cerrar(); });
+const enlaces = [...menu.querySelectorAll("a")];
+const secciones = enlaces.map(a => document.querySelector(a.getAttribute("href")));
+const activo = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) enlaces.forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id));
+}), {rootMargin:"-45% 0px -50% 0px"});
+secciones.forEach(s => activo.observe(s));
+
+// aparición al hacer scroll
+const ver = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); ver.unobserve(e.target); } }), {threshold:.12});
+document.querySelectorAll(".reveal").forEach(el => ver.observe(el));
+
+// guía: tocar una captura la abre en grande (Esc, la X o un toque fuera la cierran)
+const visor = document.getElementById("visor");
+if (visor && visor.showModal) {
+  const vImg = visor.querySelector("img"), vTxt = visor.querySelector("p");
+  document.querySelectorAll("#guia .shot button").forEach(b => b.addEventListener("click", () => {
+    const img = b.querySelector("img");
+    vImg.src = img.currentSrc || img.src; vImg.alt = img.alt; vTxt.textContent = img.alt;
+    visor.showModal();
+  }));
+  visor.querySelector("button").addEventListener("click", () => visor.close());
+  visor.addEventListener("click", e => { if (e.target === visor) visor.close(); });
+} else if (visor) {
+  document.querySelectorAll("#guia .shot button").forEach(b => b.style.cursor = "default");
+}
+
+// linterna que sigue al cursor (solo con ratón)
+const hero = document.querySelector(".hero"), linterna = document.getElementById("linterna");
+if (matchMedia("(pointer:fine)").matches) {
+  hero.addEventListener("pointermove", e => {
+    const r = hero.getBoundingClientRect();
+    linterna.style.setProperty("--mx", (e.clientX - r.left) + "px");
+    linterna.style.setProperty("--my", (e.clientY - r.top) + "px");
+  });
+}
+</script>
+</body>
+</html>
