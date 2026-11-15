@@ -7,7 +7,7 @@
 <meta name="description" content="Guía de campo de los infectados de Eliot Want To Live: cómo se comportan, qué los hace peligrosos y cómo acabar con ellos.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Caveat:wght@500;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Nanum+Pen+Script&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add("js")</script>
 <style>
 :root{
@@ -18,6 +18,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 12px)}
+[hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:hidden;overflow-wrap:break-word}
 img{max-width:100%}
 img.px{image-rendering:pixelated;image-rendering:crisp-edges;display:block}
@@ -128,9 +129,9 @@ h1 .tinta{font-weight:inherit;color:var(--blood-soft);background:linear-gradient
   background-image:repeating-linear-gradient(transparent 0 31px,var(--paper-line) 31px 32px);
   box-shadow:0 14px 40px rgba(0,0,0,.45);rotate:-.6deg}
 .note::before{content:"";position:absolute;top:-12px;left:50%;width:110px;height:26px;transform:translateX(-50%) rotate(2deg);background:rgba(220,210,170,.75)}
-.note p{font-family:Caveat,cursive;font-size:clamp(1.3rem,4vw,1.55rem);line-height:32px;margin:0 0 32px}
+.note p{font-family:"Nanum Pen Script",cursive;font-size:clamp(1.6rem,5vw,1.95rem);line-height:32px;margin:0 0 32px}
 .note p:last-child{margin:0}
-.note .firma{text-align:right;font-weight:700}
+.note .firma{text-align:right}
 
 section{padding:72px 0}
 h2{font-family:"Special Elite",monospace;font-weight:400;font-size:clamp(1.7rem,5vw,2.6rem);margin:0 0 8px;line-height:1.15}
@@ -189,14 +190,15 @@ h2::after{content:"";display:block;width:72px;height:3px;margin-top:10px;backgro
 .lists .q h4{color:var(--blood-soft)} .lists .w h4{color:var(--toxic)}
 .lists ul{margin:0;padding-left:16px;font-size:.88rem;color:var(--muted)}
 .lists li{margin-bottom:3px}
-.tip{margin-top:auto;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.25;color:var(--paper);border-left:3px solid var(--blood);padding-left:10px}
+.tip{margin-top:auto;font-family:"Nanum Pen Script",cursive;font-size:1.65rem;line-height:1.25;color:var(--paper);border-left:3px solid var(--blood);padding-left:10px}
 .when{font-size:.78rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
 
-/* ---------- tamaños ---------- */
-.lineup{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:10px 14px;padding:24px 4px 0;border-bottom:2px solid var(--line)}
-.lineup figure{margin:0;flex:none;text-align:center}
-.lineup img{height:auto}
-.lineup figcaption{font-size:.72rem;color:var(--muted);padding:6px 0}
+/* pie de la ficha: Eliot y el zombi quietos, a la misma escala en todas las fichas */
+.talla{margin:0 20px 20px;padding-top:12px;border-top:1px dashed var(--line)}
+.talla h4{margin:0 0 8px;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.talla .suelo{height:150px;display:flex;align-items:flex-end;justify-content:center;gap:22px;border-bottom:2px solid var(--line)}
+.talla figure{margin:0;flex:none}
+.talla img{display:block;max-width:none;image-rendering:pixelated;image-rendering:crisp-edges}
 
 /* ---------- consejos ---------- */
 .tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:24px;align-items:start}
@@ -241,7 +243,7 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
 .duo{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
 .mec .duo{grid-template-columns:1fr 1fr;gap:0}
 .duo figcaption{grid-column:1/-1}
-.ojo{margin-top:12px;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.25;color:var(--paper);border-left:3px solid var(--blood);padding-left:10px}
+.ojo{margin-top:12px;font-family:"Nanum Pen Script",cursive;font-size:1.65rem;line-height:1.25;color:var(--paper);border-left:3px solid var(--blood);padding-left:10px}
 /* arsenal del prólogo */
 .arsenal{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:14px;margin:8px 0 0}
 .arma{background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:16px;display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px;align-items:start}
@@ -292,7 +294,7 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
 @media (max-width:860px){
   :root{--nav-h:64px}
   .burger{display:flex}
-  .nav-jugar{margin-left:auto}
+  .nav-jugar,.burger{margin-left:auto}
   .brand img{width:82px}
   .links{position:absolute;top:var(--nav-h);left:0;right:0;flex-direction:column;gap:0;padding:8px 16px 16px;
     background:rgba(12,11,10,.97);border-bottom:1px solid var(--line);box-shadow:0 16px 30px rgba(0,0,0,.6);
@@ -327,11 +329,10 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
     <ul class="links" id="menu">
       <li><a href="#bestiario">Bestiario</a></li>
       <li><a href="#como-funcionan">Cómo funcionan</a></li>
-      <li><a href="#tamanos">Tamaños</a></li>
       <li><a href="#guia">Guía de juego</a></li>
       <li><a href="#reglas">Reglas</a></li>
     </ul>
-    <a class="nav-jugar" href="https://eliotwanttolivev1.vercel.app/" target="_blank" rel="noopener"><svg class="play" viewBox="0 0 10 12" width="10" height="12" aria-hidden="true"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg>Probar demo</a>
+    <a class="nav-jugar" hidden href="https://eliotwanttolivev1.vercel.app/" target="_blank" rel="noopener"><svg class="play" viewBox="0 0 10 12" width="10" height="12" aria-hidden="true"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg>Probar demo</a>
     <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span></button>
   </div>
 </nav>
@@ -345,10 +346,9 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
       <h1>El diario<br>de <span class="sangre" aria-label="Eliot"><span><b class="tinta">E</b><i class="gota" style="--x:22%;--l:.24em;--d:.3s;--t:6.5s"></i><i class="gota" style="--x:80%;--l:.14em;--d:3.9s;--t:7s;--g:.055em"></i></span><span><b class="tinta">l</b><i class="gota" style="--x:50%;--l:.3em;--d:2.2s;--t:5.8s"></i></span><span><b class="tinta">i</b></span><span><b class="tinta">o</b><i class="gota" style="--x:55%;--l:.18em;--d:4.6s;--t:6.2s;--g:.06em"></i></span><span><b class="tinta">t</b><i class="gota" style="--x:46%;--l:.27em;--d:1.2s;--t:7.4s"></i></span></span></h1>
       <p class="lead">Todo lo que Eliot ha aprendido sobre los muertos que caminan por la ciudad: cómo cazan, qué los hace peligrosos y, sobre todo, cómo seguir vivo un día más.</p>
       <div class="ctas">
-        <a class="cta" href="https://eliotwanttolivev1.vercel.app/" target="_blank" rel="noopener"><svg class="play" viewBox="0 0 10 12" width="10" height="12" aria-hidden="true"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg>Probar demo</a>
-        <a class="cta ghost" href="#bestiario">Abrir el bestiario</a>
+        <a class="cta" hidden href="https://eliotwanttolivev1.vercel.app/" target="_blank" rel="noopener"><svg class="play" viewBox="0 0 10 12" width="10" height="12" aria-hidden="true"><path d="M0 0l10 6-10 6z" fill="currentColor"/></svg>Probar demo</a>
+        <a class="cta" href="#bestiario">Abrir el bestiario</a>
       </div>
-      <p class="cta-nota">Gratis y en el navegador, sin descargas. Funciona en ordenador y en móvil.</p>
     </div>
     <div class="horde" aria-hidden="true">
       <div class="fila">
@@ -380,7 +380,7 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
 <section id="bestiario">
   <div class="wrap">
     <h2 class="reveal">Bestiario</h2>
-    <p class="sub reveal">Trece tipos de infectados conocidos hasta ahora. Pasa el cursor por una ficha (o tócala) para verlo caminar y atacar.</p>
+    <p class="sub reveal">Trece tipos de infectados conocidos hasta ahora. Al pie de cada ficha lo tienes junto a Eliot, a la misma escala, para que sepas cuánto te saca. Pasa el cursor por una ficha (o tócala) para verlo caminar y atacar.</p>
     <div class="filters" role="group" aria-label="Filtrar por tipo">
       <button type="button" data-f="todos" aria-pressed="true">Todos</button>
       <button type="button" data-f="comun" aria-pressed="false">Comunes</button>
@@ -403,15 +403,6 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
       <div class="rule reveal"><div class="ico"><img class="px" src="img/iconos/golpe.png" width="60" height="60" alt=""></div><h3>Los golpes los frenan</h3><p>Casi todos se tambalean un instante al recibir un impacto, y el bate o el tubo los empujan hacia atrás. Los gigantes no se inmutan.</p></div>
       <div class="rule reveal"><div class="ico"><img class="px" src="img/iconos/rex.png" width="60" height="60" alt=""></div><h3>Rex los distrae</h3><p>El perro de Eliot muerde y derriba a los infectados. Algunos se olvidan de ti para ir a por él, así que cuídalo: también puede caer herido.</p></div>
     </div>
-  </div>
-</section>
-
-<section id="tamanos">
-  <div class="wrap">
-    <h2 class="reveal">Mídelos antes de pelear</h2>
-    <p class="sub reveal">Los trece infectados del bestiario, a la misma escala que Eliot. La mayoría tiene su estatura y solo el perro infectado es más bajo que él. El Hinchado, el Coloso y el Bruto le sacan casi la mitad de altura y son más del triple de anchos.</p>
-    <p class="sub reveal">El tamaño avisa de lo que aguantan: un Bruto resiste cuatro veces más daño que un zombi común y un Coloso, más de cinco. Si ves una silueta así al fondo de la calle, no lo dejes acercarse: retrocede, dispara y vuelve a retroceder.</p>
-    <div class="lineup reveal" id="lineup"></div>
   </div>
 </section>
 
@@ -639,7 +630,7 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
   </div>
 </section>
 
-<section id="jugar">
+<section id="jugar" hidden>
   <div class="wrap">
     <img class="px eliot reveal" src="img/eliot_pistola.png" width="18" height="46" alt="">
     <h2 class="reveal">¿Listo para salir del hospital?</h2>
@@ -716,7 +707,7 @@ const Z = [
    w2:["El más lento de su grupo","Su explosión daña a otros zombis","Fácil de ver venir"],
    tip:"Nunca lo remates de cerca. Espera a que se meta en un grupo y dispárale.", cuando:"Tras la misión 2"},
   {id:"bruto", nombre:"Bruto", alias:"El mutante", cat:"gigante", w:56,h:71, vida:240, vel:34, dano:24, big:true,
-   desc:"La infección siguió creciendo dentro de él. Garras, espinas y casi el doble de la altura de Eliot. Nada lo detiene.",
+   desc:"La infección siguió creciendo dentro de él. Garras, espinas y una vez y media la altura de Eliot. Nada lo detiene.",
    q:["Vida enorme","Golpes devastadores","No se aturde ni retrocede","Rex no puede derribarlo"],
    w2:["Muy lento","Suele soltar botiquín","El fuego lo frena igual que a todos"],
    tip:"Dispara y retrocede. Nunca te quedes a su alcance más de un segundo.", cuando:"Tras la misión 2"},
@@ -733,7 +724,8 @@ const ETQ = {comun:"Común", especial:"Especial", gigante:"Gigante"};
 // Generadas por _herramientas/hacer_animaciones.py; si se regeneran, actualizar también este objeto.
 const ANIM = {"comun":{"w":43,"h":48,"walk":[8,9.0],"attack":[8,12.0]},"mujer":{"w":42,"h":48,"walk":[8,9.0],"attack":[8,12.0]},"enfermera":{"w":39,"h":53,"walk":[8,9.0],"attack":[8,12.0]},"obrero":{"w":59,"h":55,"walk":[8,9.0],"attack":[8,12.0]},"policia":{"w":45,"h":49,"walk":[8,9.0],"attack":[8,12.0]},"militar":{"w":41,"h":48,"walk":[8,9.0],"attack":[8,12.0]},"corredor":{"w":44,"h":56,"walk":[8,9.0],"attack":[8,12.0]},"perro":{"w":44,"h":39,"walk":[8,12.0],"attack":[8,12.0]},"vomitivo":{"w":42,"h":50,"walk":[8,9.0],"attack":[8,12.0]},"blindado":{"w":53,"h":51,"walk":[8,9.0],"attack":[8,12.0]},"explosivo":{"w":87,"h":67,"walk":[8,8.0],"attack":[8,10.0]},"bruto":{"w":83,"h":75,"walk":[8,9.0],"attack":[8,12.0]},"coloso":{"w":70,"h":75,"walk":[8,9.0],"attack":[8,12.0]}};
 const pct = (v,m) => Math.max(6, Math.round(v / m * 100));
-const escala = a => a.h * 3 <= 176 ? 3 : 2;   // los grandes a x2 para que quepan; la fila de tamaños muestra la escala real
+const escala = a => a.h * 3 <= 176 ? 3 : 2;   // los grandes a x2 para que quepan; el pie de la ficha muestra la escala real
+const ELIOT = {w:18, h:46}, T = 2;   // pie de la ficha: sprites quietos a x2 en todas las fichas
 const grid = document.getElementById("grid");
 grid.innerHTML = Z.map(z => {
   const a = ANIM[z.id], s = escala(a);
@@ -761,6 +753,13 @@ grid.innerHTML = Z.map(z => {
       </div>
       <p class="tip">${z.tip}</p>
       <div class="when">Aparece: <strong>${z.cuando}</strong></div>
+    </div>
+    <div class="talla">
+      <h4>Escala comparativa</h4>
+      <div class="suelo">
+        <figure><img src="img/eliot.png" width="${ELIOT.w*T}" height="${ELIOT.h*T}" alt="Eliot" loading="lazy"></figure>
+        <figure><img src="img/${z.id}_${z.id==="perro"?"south-east":"south"}.png" width="${z.w*T}" height="${z.h*T}" alt="${z.nombre}" loading="lazy"></figure>
+      </div>
     </div>
   </article>`;
 }).join("");
@@ -845,12 +844,6 @@ document.querySelectorAll(".filters button").forEach(b => b.addEventListener("cl
   grid.querySelectorAll(".card").forEach(c => c.hidden = f !== "todos" && c.dataset.cat !== f);
 }));
 
-// fila de tamaños: Eliot primero, luego de menor a mayor altura
-const L = 2;
-const fila = [{id:"eliot", nombre:"Eliot", w:18, h:46, src:"img/eliot.png"},
-  ...[...Z].sort((a,b) => a.h - b.h).map(z => ({...z, src:`img/${z.id}_${z.id==="perro"?"south-east":"south"}.png`}))];
-document.getElementById("lineup").innerHTML = fila.map(z =>
-  `<figure><img class="px" src="${z.src}" width="${z.w*L}" height="${z.h*L}" alt="${z.nombre}" loading="lazy"><figcaption>${z.nombre}</figcaption></figure>`).join("");
 </script>
 <script>
 // navbar: fondo sólido al bajar, menú móvil y enlace activo
