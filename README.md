@@ -12,16 +12,18 @@ La página tiene una sola vista y se recorre bajando. Las secciones van en el mi
 2. **Nota del diario.** Introducción narrativa escrita por Eliot.
 3. **Bestiario.** Fichas de los 13 tipos de infectado, con barras de vida, velocidad y daño, cualidades, debilidades, un consejo y desde cuándo aparece cada uno. Se pueden filtrar por categoría (comunes, especiales y gigantes). Al pasar el cursor por una ficha, o al tocarla en el móvil, el zombi camina y ataca con la animación del juego.
 4. **Cómo funcionan.** Las seis reglas que comparten todos los infectados: detección, ruido, rodeos, fuego, aturdimiento y Rex.
-5. **Tamaños.** Todos los infectados a escala real junto a Eliot.
-6. **Guía de juego.** El prólogo paso a paso, con capturas del juego:
+   Al pie de cada ficha, una **escala comparativa** muestra al infectado quieto junto a Eliot, al mismo tamaño.
+5. **Guía de juego.** El prólogo paso a paso, con capturas del juego:
    - **El hospital:** despertar en la habitación 214, registrar cajas, conseguir el bate, el primer combate y la oleada de recepción.
    - **La ciudad y las armas:** la pistola y el mapa del policía caído, las dos zonas marcadas en el mapa, la escopeta y el subfusil del campamento militar y el AR-15 del furgón SWAT.
    - **La llave de la estación:** la puerta trabada, las patrullas calcinadas, la oleada fuerte y el final del prólogo.
-   - **Cómo seguir vivo:** golpear, esquivar, lanzar la molotov, curarse, registrar y la mochila.
+   - **Cómo seguir vivo:** golpear, esquivar, lanzar la molotov, curarse (con el aviso de vida baja y cómo vendar a Rex), registrar y la mochila.
    - **Controles:** teclado y ratón, mando y móvil.
 
    Al tocar una captura se abre a mayor tamaño.
-7. **Sobrevivir.** Tres reglas de supervivencia escritas como notas arrancadas del cuaderno.
+6. **Reglas para seguir vivo.** Tres reglas de supervivencia escritas como notas arrancadas del cuaderno.
+
+Hay una sección final, **Jugar** (`#jugar`), con los botones "Probar demo" que llevan al juego publicado. Esos botones están ocultos por ahora con el atributo `hidden`, igual que los de la barra y la portada. Para mostrarlos, quita ese atributo.
 
 ## Estructura
 
@@ -36,7 +38,7 @@ el_diario_de_eliot/
 └── README.md
 ```
 
-La página no usa frameworks ni pasos de compilación. Lo único externo son tres tipografías de Google Fonts: Special Elite, Caveat e Inter.
+La página no usa frameworks ni pasos de compilación. Lo único externo son tres tipografías de Google Fonts: Special Elite, Nanum Pen Script (las notas manuscritas) e Inter.
 
 ## Verla en local
 
@@ -55,6 +57,8 @@ python -m http.server 8000
 ```
 
 ## Publicarla en Vercel
+
+La página ya está publicada en Vercel. Cada cambio que se sube a la rama principal se publica solo. Los pasos de abajo sirven para montarla de nuevo desde cero.
 
 1. Sube este repositorio a GitHub.
 2. En Vercel, importa el repositorio con estos ajustes:
@@ -78,11 +82,13 @@ También se puede publicar sin GitHub ejecutando `vercel` desde esta carpeta.
 
 ## De dónde salen los datos
 
-Todo el contenido sale de la **versión 1.0.3** del juego:
+El contenido está al día con la **versión 1.0.4** del juego (fase 1: el mapa pausa el juego, se puede vendar a Rex de pie y hay un aviso de vida baja con latido). Las estadísticas y las capturas son de la 1.0.3, porque la 1.0.4 no cambió a los zombis.
 
-- **Estadísticas del bestiario.** La vida, la velocidad y el daño se copiaron de las escenas de cada zombi. Están en el array `Z` del script de `index.html`. Las barras se calculan en proporción al valor más alto de cada columna.
+- **Estadísticas del bestiario.** La vida, la velocidad y el daño se copiaron de las escenas de cada zombi (v1.0.3). Están en el array `Z` del script de `index.html`. Las barras se calculan en proporción al valor más alto de cada columna.
 - **Animaciones.** Las tiras de `img/anim/` se recortaron de las hojas de sprites del juego. El tamaño de cuadro, el número de cuadros y la velocidad de cada animación están en el objeto `ANIM` de `index.html`.
 - **Guía de juego.** Las capturas se tomaron con el juego en marcha, recorriendo el prólogo. Los textos describen el comportamiento de la v1.0.3: dónde está cada arma, cuánto cura cada objeto y qué teclas usa cada acción.
+
+Pendiente: cuando se hagan las fases siguientes de la v1.0.4, actualizar la tabla de controles y los textos de la guía. La fase 2 añade el esquema "solo teclado", y la fase 3 cambia la regla de los rodeos de los zombis.
 
 Si el juego cambia en una versión posterior (balance, orden del prólogo, controles), hay que actualizar a mano los datos de `index.html` y, si hace falta, las imágenes. Al pie de la página se indica de qué versión salen los datos.
 

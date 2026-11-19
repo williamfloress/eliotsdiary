@@ -477,7 +477,7 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
         <li class="paso reveal">
           <figure class="shot"><button type="button"><img src="img/guia/c3.webp" width="800" height="450" loading="lazy" alt="Mapa ampliado de la ciudad con la estación al norte y dos círculos marcados con ¿armas?"></button><figcaption>El mapa del patrullero (tecla M)</figcaption></figure>
           <div><h4>Lee el mapa: dos zonas con «¿armas?»</h4>
-            <p>Arriba a la derecha aparece el radar. Pulsa <kbd>M</kbd> para ampliarlo. Además de la estación, el policía rodeó a mano dos zonas:</p>
+            <p>Arriba a la derecha aparece el radar. Pulsa <kbd>M</kbd> para ampliarlo: mientras lo miras, el juego queda en pausa. Además de la estación, el policía rodeó a mano dos zonas:</p>
             <p><strong style="color:#6fd16f">Círculo verde</strong>: un campamento militar.<br><strong style="color:#7fb0ff">Círculo azul</strong>: un furgón SWAT volcado.</p>
             <p>Los círculos son aproximados: el arma está en <strong>una caja al azar</strong> dentro de la zona, así que hay que registrar.</p></div>
         </li>
@@ -577,6 +577,7 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
           </figure>
           <div class="txt"><h4>Curarse</h4><p><strong>Vendaje rápido</strong> (<kbd>V</kbd>, barra azul): 1,2 s y +25 de vida. <strong>Botiquín</strong> (<kbd>H</kbd>, barra verde): 2,5 s y +40.</p>
             <p>Mantén la tecla. Puedes caminar despacio mientras te curas, pero si te golpean, disparas o sueltas la tecla, se interrumpe y no se gasta el objeto.</p>
+            <p>Cuando te queda poca vida, oyes el latido de Eliot, la pantalla se tiñe de rojo y la música se apaga. Si el latido se acelera, cúrate ya. Si a Rex le falta vida, ponte a su lado y pulsa <kbd>E</kbd> para vendarlo con un vendaje rápido, aunque esté de pie.</p>
             <div class="teclas"><span>Mantener <kbd>V</kbd> / <kbd>H</kbd></span><span>Móvil: tocar el icono</span></div></div>
         </article>
         <article class="mec reveal">
@@ -608,8 +609,8 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
             <tr><td>Esquivar</td><td><kbd>Espacio</kbd></td><td>Cruceta derecha</td><td>RODAR</td></tr>
             <tr><td>Molotov</td><td>Mantener <kbd>G</kbd></td><td>B + stick der.</td><td>Arrastrar G</td></tr>
             <tr><td>Vendaje / botiquín</td><td>Mantener <kbd>V</kbd> / <kbd>H</kbd></td><td>Cruceta arriba / abajo</td><td>Tocar el icono</td></tr>
-            <tr><td>Interactuar / registrar</td><td><kbd>E</kbd></td><td>A</td><td>Botón verde</td></tr>
-            <tr><td>Mapa · mochila</td><td><kbd>M</kbd> · <kbd>Tab</kbd></td><td>Select · LT</td><td>Tocar el radar · la mochila</td></tr>
+            <tr><td>Interactuar / registrar / vendar a Rex</td><td><kbd>E</kbd></td><td>A</td><td>Botón verde</td></tr>
+            <tr><td>Mapa (pausa el juego) · mochila</td><td><kbd>M</kbd> · <kbd>Tab</kbd></td><td>Select · LT</td><td>Tocar el radar · la mochila</td></tr>
             <tr><td>Pausa</td><td><kbd>Esc</kbd></td><td>Start</td><td>Botón II</td></tr>
           </tbody>
         </table>
@@ -644,12 +645,12 @@ kbd{display:inline-block;min-width:1.7em;padding:1px 6px;font:700 .78rem/1.5 Int
   <div class="wrap">
     <div class="team"><span>Un juego de</span> <img src="img/logo_equipo_rojo.png" width="380" height="148" alt="Equipo Rojo"></div><br>
     <strong>Eliot Want To Live</strong><br>
-    Supervivencia zombi de vista cenital. Datos tomados de la versión 1.0.3; pueden cambiar con el desarrollo.
+    Supervivencia zombi de vista cenital. Datos tomados de la versión 1.0.4; pueden cambiar con el desarrollo.
   </div>
 </footer>
 
 <script>
-// Valores tomados del juego (v1.0.3). Las barras se normalizan contra el máximo de cada columna.
+// Valores tomados del juego (v1.0.3; sin cambios en la v1.0.4). Las barras se normalizan contra el máximo de cada columna.
 const Z = [
   {id:"comun", nombre:"Común", alias:"El vecino de al lado", cat:"comun", w:23,h:47, vida:60, vel:44, dano:10,
    desc:"El infectado más habitual. Lento, torpe y previsible, pero rara vez está solo: donde hay uno, hay diez más cerca.",
