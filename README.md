@@ -1,6 +1,6 @@
 # El diario de Eliot
 
-Página pública de **Eliot Want To Live**, un juego de supervivencia zombi en pixel art con vista cenital, hecho en Godot por Equipo Rojo (Sistemas de Información II, UDO).
+Página pública de **Eliot Wants to Live**, un juego de supervivencia zombi en pixel art con vista cenital, hecho en Godot por Equipo Rojo (Sistemas de Información II, UDO).
 
 La página está escrita como el cuaderno de Eliot, el protagonista. Sirve para que alguien que todavía no ha jugado entienda de qué va el juego: qué infectados hay, cómo se comportan y cómo es el recorrido del prólogo.
 
@@ -109,4 +109,4 @@ Las imágenes se generan con scripts que viven fuera de este repositorio, porque
 
 ## Créditos
 
-**Eliot Want To Live** es un juego de **Equipo Rojo** para la asignatura Sistemas de Información II de la UDO. El arte de los personajes, los infectados y los escenarios es del propio juego.
+**Eliot Wants to Live** es un juego de **Equipo Rojo** para la asignatura Sistemas de Información II de la UDO. El arte de los personajes, los infectados y los escenarios es del propio juego.
